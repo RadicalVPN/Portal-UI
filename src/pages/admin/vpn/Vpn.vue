@@ -8,10 +8,8 @@
           <span class="font-bold">Total VPNs: {{ vpns?.length || 0 }}</span>
         </div>
         <div class="col-span-5 flex justify-between items-center pr-4">
-          <!-- Input-Box für die Suche -->
           <va-input v-model="vpnSearch" type="text" placeholder="Search..." />
           <div class="ml-4">
-            <!-- Padding zwischen Input und Button -->
             <va-button icon="fa-plus" @click="showVpnAddModel = true">Create new VPN</va-button>
           </div>
         </div>
@@ -25,69 +23,11 @@
         :key="index"
         class="vpn-page__cards va-text-center col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 overflow-clip"
       >
-        <va-card-title style="font-size: 0.875rem">
-          <!-- Hier können Sie die gewünschte Textgröße festlegen -->
-          {{ vpn.alias }}
-          <va-spacer />
-          <va-button size="small" icon="fa-trash" color="danger" />
-        </va-card-title>
-
-        <va-card-content>
-          <va-card-content class="grid grid-cols-12">
-            <div class="col-span-6 flex items-center">Upstream</div>
-            <div class="col-span-6 flex justify-between items-center pr-4">
-              {{ humanFileSize(vpnStates?.[vpn.id]?.rx || 0) }}/s
-            </div>
-          </va-card-content>
-          <va-card-content class="grid grid-cols-12">
-            <div class="col-span-6 flex items-center">Downstream</div>
-            <div class="col-span-6 flex justify-between items-center pr-4">
-              {{ humanFileSize(vpnStates?.[vpn.id]?.tx || 0) }}/s
-            </div>
-          </va-card-content>
-          <va-card-content class="grid grid-cols-12">
-            <div class="col-span-3 flex items-center">Activated</div>
-            <div class="col-span-9">
-              <va-switch v-model="toggles[vpn.id]" size="small" @click="toggleVpn(vpn.id)" />
-            </div>
-          </va-card-content>
-          <va-card-content class="grid grid-cols-12">
-            <div class="col-span-6 flex items-center">KeepAlive</div>
-            <div class="col-span-6 flex justify-between items-center pr-4">
-              {{ vpn.status.persistentKeepalive }}
-            </div>
-          </va-card-content>
-          <va-card-content class="grid grid-cols-12">
-            <div class="col-span-6 flex items-center">IP</div>
-            <div class="col-span-6 flex justify-between items-center pr-4">
-              {{ vpn.status.allowedIps[0] || 'N/A' }}
-            </div>
-          </va-card-content>
-          <va-card-content class="grid grid-cols-12">
-            <div class="col-span-6 flex items-center"></div>
-            <div class="col-span-6 flex justify-between items-center pr-4">
-              {{ vpn.status.allowedIps?.[1]?.slice(13, -1) || 'N/A' }}
-            </div>
-          </va-card-content>
-
-          <div class="my-3 grid grid-cols-12 gap-6">
-            <div class="col-span-6 flex items-center">
-              <va-button icon="fa-qrcode" @click="showVPNQrCodeModel[vpn.id] = true"></va-button>
-            </div>
-            <div class="col-span-3"></div>
-            <div class="col-span-2">
-              <va-button icon="fa-download" @click="downloadConfiguration(vpn.id, vpn.alias)" />
-            </div>
-          </div>
-        </va-card-content>
-
-        <va-modal v-model="showVPNQrCodeModel[vpn.id]" title="VPN QR Code" cancel-text="Cancel" blur>
-          <img class="items-center" :src="`/api/2.0/vpn/${vpn.id}/qrcode`"
-        /></va-modal>
+        <vpn_card :vpn="vpn"></vpn_card>
       </va-card>
     </div>
 
-    <va-modal v-model="showVpnAddModel" title="Create VPN" ok-text="Create" cancel-text="Cancel" blur>
+    <va-modal v-model="showVpnAddModel" title="Create VPN" ok-text="Create" cancel-text="Cancel" blur @ok="addVPN">
       <va-input v-model="vpnAddAlias" class="mb-4" type="email" label="Alias" />
     </va-modal>
   </div>
@@ -107,40 +47,37 @@
 
   import { saveAs } from 'file-saver'
   import { onMounted, ref } from 'vue'
+  import vpn_card from './VpnCard.vue'
+  import { useGlobalStore } from '../../../stores/global-store'
 
   let busy = ref(false)
   let vpns = ref()
   const toggles = ref({} as any)
-  const lastVpnStates = ref({} as LastTxRxHash)
   const vpnStates = ref({} as LastTxRxHash)
   const showVpnAddModel = ref(false)
-  const showVPNQrCodeModel = ref({} as ShowQrCodeModel)
   const vpnSearch = ref('')
   const vpnAddAlias = ref('')
 
-  async function toggleVpn(id: number) {
-    await fetch(`/api/1.0/vpn/${id}/toggle`, {
-      method: 'POST',
-    })
-  }
-
-  function humanFileSize(size: number) {
-    if (size < 1024) return size + ' B'
-    let i = Math.floor(Math.log(size) / Math.log(1024))
-    let num = size / Math.pow(1024, i)
-    let round = Math.round(num)
-    const out = round < 10 ? num.toFixed(2) : round < 100 ? num.toFixed(1) : round
-    return `${out} ${'KMGTPEZY'[i - 1]}B`
-  }
+  const store = useGlobalStore()
 
   async function requestVPNs() {
     return (await (await fetch('/api/1.0/vpn')).json()).sort((a: any, b: any) => a.id - b.id)
   }
 
-  async function downloadConfiguration(id: number, alias: string) {
-    const data = await (await fetch(`/api/1.0/vpn/${id}/config`)).text()
-    const blob = new Blob([data], { type: 'text/plain;charset=utf-8' })
-    saveAs(blob, `radical_vpn-${alias.replace(' ', '')}.conf`)
+  async function addVPN() {
+    await fetch('/api/1.0/vpn', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        alias: vpnAddAlias.value,
+      }),
+    })
+    showVpnAddModel.value = false
+
+    //refetch vpns
+    vpns.value = await requestVPNs()
   }
 
   onMounted(async () => {
@@ -155,7 +92,7 @@
     //fetch vpn states every seocnd
     setInterval(async () => {
       vpns.value?.forEach((vpn: any) => {
-        lastVpnStates.value[vpn.id] = {
+        store.lastVpnTrafficHash[vpn.id] = {
           rx: vpn?.status.transfer.rx || 0,
           tx: vpn?.status.transfer.tx || 0,
         }
@@ -164,8 +101,8 @@
       vpns.value = await requestVPNs()
       vpns.value?.forEach((vpn: any) => {
         vpnStates.value[vpn.id] = {
-          rx: vpn.status.transfer.rx - (lastVpnStates?.value[vpn.id]?.rx || 0),
-          tx: vpn.status.transfer.tx - (lastVpnStates.value[vpn.id]?.tx || 0),
+          rx: vpn.status.transfer.rx - (store.lastVpnTrafficHash[vpn.id]?.rx || 0),
+          tx: vpn.status.transfer.tx - (store.lastVpnTrafficHash[vpn.id]?.tx || 0),
         }
       })
     }, 1000)

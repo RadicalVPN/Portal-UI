@@ -1,0 +1,69 @@
+<template>
+  <va-card-title style="font-size: 0.875rem">
+    {{ vpn.alias }}
+    <va-spacer />
+    <va-button size="small" icon="fa-trash" color="danger" @click="deleteVpn(vpn.id)" />
+  </va-card-title>
+
+  <va-card-content>
+    <vpn_info_card title="Upstream" :value="`${store.humanFileSize(store.lastVpnTrafficHash?.[vpn.id]?.rx || 0)}/s`" />
+    <vpn_info_card
+      title="Downstream"
+      :value="`${store.humanFileSize(store.lastVpnTrafficHash?.[vpn.id]?.tx || 0)}/s`"
+    />
+    <vpn_info_card title="KeepAlive" :value="vpn.status.persistentKeepalive" />
+    <vpn_toggle_card :vpn="vpn" />
+    <vpn_info_card title="IP" :value="vpn.status.allowedIps[0] || 'N/A'" />
+    <vpn_info_card title="" :value="vpn.status.allowedIps?.[1]?.slice(13, -1) || 'N/A'" />
+
+    <div class="my-3 grid grid-cols-12 gap-6">
+      <div class="col-span-6 flex items-center">
+        <va-button icon="fa-qrcode" @click="showVpnQrModel = true"></va-button>
+      </div>
+      <div class="col-span-3"></div>
+      <div class="col-span-2">
+        <va-button icon="fa-download" @click="downloadConfiguration(vpn.id, vpn.alias)" />
+      </div>
+    </div>
+  </va-card-content>
+
+  <va-modal v-model="showVpnQrModel" title="VPN QR Code" cancel-text="Cancel" blur>
+    <img class="items-center" :src="`/api/2.0/vpn/${vpn.id}/qrcode`"
+  /></va-modal>
+
+  <va-modal v-model="showVpnAddModel" title="Create VPN" ok-text="Create" cancel-text="Cancel" blur>
+    <va-input v-model="vpnAddAlias" class="mb-4" type="email" label="Alias" />
+  </va-modal>
+</template>
+
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { saveAs } from 'file-saver'
+  import { useGlobalStore } from '../../../stores/global-store'
+  import vpn_toggle_card from './VpnToggleCard.vue'
+  import vpn_info_card from './VpnInfoItemCard.vue'
+
+  const props = defineProps<{
+    vpn: any
+  }>()
+  const vpnActive = ref(props.vpn.active)
+
+  const showVpnAddModel = ref(false)
+  const vpnAddAlias = ref('')
+
+  const showVpnQrModel = ref(false)
+
+  const store = useGlobalStore()
+
+  async function deleteVpn(id: number) {
+    await fetch(`/api/1.0/vpn/${id}`, {
+      method: 'DELETE',
+    })
+  }
+
+  async function downloadConfiguration(id: number, alias: string) {
+    const data = await (await fetch(`/api/1.0/vpn/${id}/config`)).text()
+    const blob = new Blob([data], { type: 'text/plain;charset=utf-8' })
+    saveAs(blob, `radical_vpn-${alias.replace(' ', '')}.conf`)
+  }
+</script>
