@@ -24,9 +24,7 @@
               </va-list-item-label>
             </va-list-item-section>
 
-            <va-list-item-section icon>
-              <va-icon name="eye" color="gray" />
-            </va-list-item-section>
+            <va-list-item-section icon> </va-list-item-section>
           </va-list-item>
 
           <va-list-separator v-if="i < customers.length - 1" :key="'separator' + customer.id" class="my-1" fit />
