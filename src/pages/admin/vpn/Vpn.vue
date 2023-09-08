@@ -60,13 +60,13 @@
           <va-card-content class="grid grid-cols-12">
             <div class="col-span-6 flex items-center">IP</div>
             <div class="col-span-6 flex justify-between items-center pr-4">
-              {{ vpn.status.allowedIps[0] }}
+              {{ vpn.status.allowedIps[0] || 'N/A' }}
             </div>
           </va-card-content>
           <va-card-content class="grid grid-cols-12">
             <div class="col-span-6 flex items-center"></div>
-            <div class="col-span-6">
-              {{ vpn.status.allowedIps[1].slice(13, -1) }}
+            <div class="col-span-6 flex justify-between items-center pr-4">
+              {{ vpn.status.allowedIps?.[1]?.slice(13, -1) || 'N/A' }}
             </div>
           </va-card-content>
 
