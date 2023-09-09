@@ -4,13 +4,13 @@
 
     <va-card class="horizontal-bars">
       <va-card-content class="my-3 grid grid-cols-12 gap-6">
-        <div class="col-span-7 flex items-center">
+        <div class="col-span-8 flex items-center">
           <span class="font-bold">Total VPNs: {{ vpns?.length || 0 }}</span>
         </div>
-        <div class="col-span-5 flex justify-between items-center pr-4">
+        <div class="col-span-4 flex justify-between items-center pr-4">
           <va-input v-model="vpnSearch" type="text" placeholder="Search..." clearable />
           <div class="ml-4">
-            <va-button icon="fa-plus" @click="showVpnAddModel = true">Create new VPN</va-button>
+            <va-button icon="fa-plus" @click="showVpnAddModel = true" />
           </div>
         </div>
       </va-card-content>
@@ -46,7 +46,7 @@
   }
 
   import { saveAs } from 'file-saver'
-  import { onMounted, ref } from 'vue'
+  import { onBeforeUnmount, onMounted, onUnmounted, ref } from 'vue'
   import vpn_card from './VpnCard.vue'
   import { useGlobalStore } from '../../../stores/global-store'
 
@@ -80,6 +80,7 @@
     vpns.value = await requestVPNs()
   }
 
+  let refreshTimer: any
   onMounted(async () => {
     busy.value = true
     const _vpns = await requestVPNs()
@@ -90,7 +91,7 @@
     busy.value = false
 
     //fetch vpn states every seocnd
-    setInterval(async () => {
+    refreshTimer = setInterval(async () => {
       vpns.value?.forEach((vpn: any) => {
         store.lastVpnTrafficHash[vpn.id] = {
           rx: vpn?.status.transfer.rx || 0,
@@ -106,5 +107,11 @@
         }
       })
     }, 1000)
+  })
+
+  //make sure to clean the interval before unmounting
+  onBeforeUnmount(() => {
+    console.log('unmounting refresh timer')
+    clearInterval(refreshTimer)
   })
 </script>
