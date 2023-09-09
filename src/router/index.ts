@@ -16,6 +16,14 @@ const routes: Array<RouteRecordRaw> = [
     name: 'admin',
     path: '/admin',
     component: AppLayout,
+    beforeEnter: async (to, from, next) => {
+      try {
+        await (await fetch('/api/1.0/auth')).json()
+        next()
+      } catch {
+        next('/auth/login')
+      }
+    },
     children: [
       {
         name: 'dashboard',
