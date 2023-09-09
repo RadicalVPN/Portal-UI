@@ -64,6 +64,7 @@
   const store = useGlobalStore()
 
   async function deleteVpn(id: number) {
+    store.vpns = store.vpns.filter((vpn: any) => vpn.id !== id)
     await fetch(`/api/1.0/vpn/${id}`, {
       method: 'DELETE',
     })

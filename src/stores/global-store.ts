@@ -16,9 +16,9 @@ export const useGlobalStore = defineStore('global', {
         mail: 'N/A',
       },
       lastVpnTrafficHash: {} as LastVpnTrafficHash,
+      vpns: [] as any[],
     }
   },
-
   actions: {
     toggleSidebar() {
       this.isSidebarMinimized = !this.isSidebarMinimized
