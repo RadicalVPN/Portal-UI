@@ -23,7 +23,7 @@
         :key="index"
         class="vpn-page__cards va-text-center col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 overflow-clip"
       >
-        <vpn_card :vpn="vpn"></vpn_card>
+        <vpn_card :vpn="vpn" :vpn-states="vpnStates"></vpn_card>
       </va-card>
     </div>
 

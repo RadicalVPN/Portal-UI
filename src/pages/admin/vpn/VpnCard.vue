@@ -6,11 +6,8 @@
   </va-card-title>
 
   <va-card-content>
-    <vpn_info_card title="Upstream" :value="`${store.humanFileSize(store.lastVpnTrafficHash?.[vpn.id]?.rx || 0)}/s`" />
-    <vpn_info_card
-      title="Downstream"
-      :value="`${store.humanFileSize(store.lastVpnTrafficHash?.[vpn.id]?.tx || 0)}/s`"
-    />
+    <vpn_info_card title="Upstream" :value="`${store.humanFileSize(vpnStates?.[vpn.id]?.rx || 0)}/s`" />
+    <vpn_info_card title="Downstream" :value="`${store.humanFileSize(vpnStates?.[vpn.id]?.tx || 0)}/s`" />
     <vpn_info_card title="KeepAlive" :value="vpn.status.persistentKeepalive" />
     <vpn_toggle_card :vpn="vpn" />
     <vpn_info_card title="IP" :value="vpn.status.allowedIps[0] || 'N/A'" />
@@ -53,8 +50,8 @@
 
   const props = defineProps<{
     vpn: any
+    vpnStates: any
   }>()
-  const vpnActive = ref(props.vpn.active)
 
   const showVpnAddModel = ref(false)
   const vpnAddAlias = ref('')
