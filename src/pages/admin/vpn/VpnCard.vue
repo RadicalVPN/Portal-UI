@@ -15,6 +15,14 @@
     <vpn_toggle_card :vpn="vpn" />
     <vpn_info_card title="IP" :value="vpn.status.allowedIps[0] || 'N/A'" />
     <vpn_info_card title="" :value="vpn.status.allowedIps?.[1]?.slice(13, -1) || 'N/A'" />
+    <!-- TODO: Use backend to get server name -->
+    <va-card-content class="grid grid-cols-12">
+      <div class="col-span-6 flex items-center">Server</div>
+      <div class="col-span-6 flex justify-between items-center pr-4">
+        <va-icon name="flag-icon-de small" />
+        <span class="ml-2">ger-001</span>
+      </div>
+    </va-card-content>
 
     <div class="my-3 grid grid-cols-12 gap-6">
       <div class="col-span-6 flex items-center">
@@ -67,3 +75,7 @@
     saveAs(blob, `radical_vpn-${alias.replace(' ', '')}.conf`)
   }
 </script>
+
+<style lang="scss" scoped>
+  @import 'flag-icons/css/flag-icons.css';
+</style>

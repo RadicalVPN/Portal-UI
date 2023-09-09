@@ -1,51 +1,31 @@
 <template>
-  <va-dropdown class="color-dropdown pointer" :offset="[13, 0]" stick-to-edges>
-    <template #anchor>
-      <va-icon-color />
+  <va-switch v-model="themeSwitch" size="small" @click="setTheme(themeSwitch ? 'light' : 'dark')">
+    <template #innerLabel>
+      <div class="va-text-center">
+        <va-icon size="small" :name="themeSwitch ? 'light_mode' : 'dark_mode'" />
+      </div>
     </template>
-
-    <va-dropdown-content class="color-dropdown__content pl-8 pr-8 pt-2 pb-2">
-      <va-button-toggle
-        v-model="currentTheme"
-        class="color-dropdown__toggle"
-        :options="themeOptions"
-        outline
-        round
-        grow
-        size="small"
-      />
-
-      <table class="w-full my-4">
-        <color-dropdown-item
-          v-for="colorName in colorNames"
-          :key="colorName"
-          class="color-picker-dropdown"
-          :color-name="colorName"
-        />
-      </table>
-    </va-dropdown-content>
-  </va-dropdown>
+  </va-switch>
 </template>
 
 <script setup lang="ts">
-  import VaIconColor from '../../../icons/VaIconColor.vue'
-  import ColorDropdownItem from './ColorDropdownItem.vue'
   import { useColors } from 'vuestic-ui'
   import { ref, watchEffect } from 'vue'
 
   const { presets, applyPreset, colors } = useColors()
 
-  const currentTheme = ref('light')
+  const themeSwitch = ref()
+  const currentTheme = ref(localStorage.getItem('theme') || 'light')
 
   watchEffect(() => {
-    applyPreset(currentTheme.value)
+    setTheme(currentTheme.value)
   })
 
-  const themeOptions = Object.keys(presets.value).map((themeName) => ({
-    value: themeName,
-    label: themeName,
-  }))
-  const colorNames = Object.keys(colors)
+  function setTheme(theme: string) {
+    localStorage.setItem('theme', theme)
+    themeSwitch.value = theme === 'light'
+    applyPreset(theme)
+  }
 </script>
 
 <style lang="scss" scoped>

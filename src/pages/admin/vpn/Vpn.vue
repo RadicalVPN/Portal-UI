@@ -8,7 +8,7 @@
           <span class="font-bold">Total VPNs: {{ vpns?.length || 0 }}</span>
         </div>
         <div class="col-span-5 flex justify-between items-center pr-4">
-          <va-input v-model="vpnSearch" type="text" placeholder="Search..." />
+          <va-input v-model="vpnSearch" type="text" placeholder="Search..." clearable />
           <div class="ml-4">
             <va-button icon="fa-plus" @click="showVpnAddModel = true">Create new VPN</va-button>
           </div>
