@@ -13,6 +13,10 @@
             {{ t(`user.${option.name}`) }}
           </router-link>
         </va-list-item>
+
+        <va-list-item class="p-2">
+          <router-link to="auth/login" class="profile-dropdown__item" @click="logout()"> Logout </router-link>
+        </va-list-item>
       </va-dropdown-content>
     </va-dropdown>
   </div>
@@ -26,6 +30,13 @@
   const { t } = useI18n()
   const { colors } = useColors()
 
+  async function logout() {
+    console.log('logging out')
+    await fetch('/api/1.0/auth', {
+      method: 'DELETE',
+    })
+  }
+
   withDefaults(
     defineProps<{
       options?: { name: string; redirectTo: string }[]
@@ -34,11 +45,7 @@
       options: () => [
         {
           name: 'profile',
-          redirectTo: '',
-        },
-        {
-          name: 'logout',
-          redirectTo: 'login',
+          redirectTo: 'profile',
         },
       ],
     },

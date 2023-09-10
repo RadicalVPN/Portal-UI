@@ -6,6 +6,7 @@ import Page404Layout from '../layouts/Page404Layout.vue'
 
 import RouteViewComponent from '../layouts/RouterBypass.vue'
 import UIRoute from '../pages/admin/ui/route'
+import { useGlobalStore } from '../stores/global-store'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -18,13 +19,18 @@ const routes: Array<RouteRecordRaw> = [
     component: AppLayout,
     beforeEnter: async (to, from, next) => {
       try {
-        await (await fetch('/api/1.0/auth')).json()
+        useGlobalStore().user = await (await fetch('/api/1.0/auth')).json()
         next()
       } catch {
         next('/auth/login')
       }
     },
     children: [
+      {
+        name: 'profile',
+        path: 'profile',
+        component: () => import('../pages/admin/profile/Profile.vue'),
+      },
       {
         name: 'dashboard',
         path: 'dashboard',

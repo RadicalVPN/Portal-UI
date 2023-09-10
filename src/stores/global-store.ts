@@ -12,8 +12,10 @@ export const useGlobalStore = defineStore('global', {
     return {
       isSidebarMinimized: false,
       user: {
-        name: 'N/A',
-        mail: 'N/A',
+        active: true,
+        email: 'N/A',
+        username: 'N/A',
+        id: 0,
       },
       lastVpnTrafficHash: {} as LastVpnTrafficHash,
       vpns: [] as any[],
@@ -25,11 +27,11 @@ export const useGlobalStore = defineStore('global', {
     },
 
     changeUserName(userName: string) {
-      this.user.name = userName
+      this.user.username = userName
     },
 
     changeUserMail(userName: string) {
-      this.user.name = userName
+      this.user.username = userName
     },
     humanFileSize(size: number) {
       if (size < 1024) return size + ' B'

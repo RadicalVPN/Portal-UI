@@ -48,9 +48,9 @@
   const GlobalStore = useGlobalStore()
   const formReady = computed(() => !emailErrors.value.length && !passwordErrors.value.length)
 
-  async function getUserInfo(): Promise<any> {
+  async function checkAuth(): Promise<any> {
     try {
-      return await (await fetch('/api/1.0/auth')).json()
+      await (await fetch('/api/1.0/auth')).json()
     } catch {
       return null
     }
@@ -76,10 +76,7 @@
   }
 
   onMounted(async () => {
-    const userInfo = await getUserInfo()
-
-    if (userInfo) {
-      GlobalStore.changeUserName(userInfo.username)
+    if (await checkAuth()) {
       router.push({ name: 'dashboard' })
     }
   })
@@ -97,8 +94,7 @@
       return
     }
 
-    const userInfo = await getUserInfo()
-    GlobalStore.changeUserName(userInfo.username)
+    await checkAuth()
 
     router.push({ name: 'dashboard' })
   }

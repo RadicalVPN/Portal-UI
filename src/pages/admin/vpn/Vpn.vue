@@ -1,7 +1,5 @@
 <template>
   <div class="vpn-page">
-    <!-- TODO: SPLIT THIS INTO A SEPERATE COMPONENT -->
-
     <va-card class="horizontal-bars">
       <va-card-content class="my-3 grid grid-cols-12 gap-6">
         <div class="col-span-8 flex items-center">
@@ -19,7 +17,7 @@
     <div class="grid grid-cols-12 gap-6">
       <va-inner-loading v-if="busy" loading />
       <va-card
-        v-for="(vpn, index) in vpnSearch ? store.vpns.filter((vpn: any) => vpn.alias.toLowerCase().includes(vpnSearch.toLowerCase())) : store.vpns"
+        v-for="(vpn, index) in filteredVpns"
         :key="index"
         class="vpn-page__cards va-text-center col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 overflow-clip"
       >
@@ -41,12 +39,7 @@
     }
   }
 
-  interface ShowQrCodeModel {
-    [key: string]: boolean
-  }
-
-  import { saveAs } from 'file-saver'
-  import { onBeforeUnmount, onMounted, onUnmounted, ref } from 'vue'
+  import { computed, onBeforeUnmount, onMounted, onUnmounted, ref } from 'vue'
   import vpn_card from './VpnCard.vue'
   import { useGlobalStore } from '../../../stores/global-store'
 
@@ -54,10 +47,14 @@
   const toggles = ref({} as any)
   const vpnStates = ref({} as LastTxRxHash)
   const showVpnAddModel = ref(false)
-  const vpnSearch = ref('')
   const vpnAddAlias = ref('')
 
   const store = useGlobalStore()
+
+  const vpnSearch = ref('')
+  const filteredVpns = computed(() => {
+    return store.vpns.filter((vpn: any) => vpn.alias.toLowerCase().includes(vpnSearch.value.toLowerCase()))
+  })
 
   async function requestVPNs() {
     return (await (await fetch('/api/1.0/vpn')).json()).sort((a: any, b: any) => a.id - b.id)
