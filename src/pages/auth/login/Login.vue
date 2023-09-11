@@ -45,7 +45,6 @@
   const emailErrors = ref<string[]>([])
   const passwordErrors = ref<string[]>([])
   const router = useRouter()
-  const GlobalStore = useGlobalStore()
   const formReady = computed(() => !emailErrors.value.length && !passwordErrors.value.length)
 
   async function checkAuth(): Promise<any> {
