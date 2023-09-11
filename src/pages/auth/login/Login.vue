@@ -63,7 +63,8 @@
 
   async function checkAuth(): Promise<any> {
     try {
-      await (await fetch('/api/1.0/auth')).json()
+      const res = await fetch('/api/1.0/auth')
+      return res.status === 200
     } catch {
       return null
     }
