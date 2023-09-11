@@ -10,7 +10,7 @@
         :key="id"
         class="language-dropdown__item flex flex-1 flex-wrap items-center pt-1 pb-1 mt-2 mb-2"
         :class="{ active: option.code === locale }"
-        @click="locale = option.code"
+        @click="applyLocale(option.code)"
       >
         <va-icon :name="getFlagIcon(option.code, 'small')" />
         <span class="dropdown-item__text">
@@ -22,9 +22,19 @@
 </template>
 
 <script setup lang="ts">
+  import { onMounted } from 'vue'
   import { useI18n } from 'vue-i18n'
 
   const { t, locale } = useI18n()
+
+  onMounted(() => {
+    applyLocale(localStorage.getItem('i18n') || 'gb')
+  })
+
+  function applyLocale(code: string) {
+    locale.value = code
+    localStorage.setItem('i18n', code)
+  }
 
   withDefaults(
     defineProps<{
@@ -37,20 +47,8 @@
           name: 'english',
         },
         {
-          code: 'es',
-          name: 'spanish',
-        },
-        {
-          code: 'br',
-          name: 'brazilian_portuguese',
-        },
-        {
-          code: 'cn',
-          name: 'simplified_chinese',
-        },
-        {
-          code: 'ir',
-          name: 'persian',
+          code: 'de',
+          name: 'german',
         },
       ],
     },

@@ -285,11 +285,8 @@
     "poweredBy": "Powered by"
   },
   "language": {
-    "brazilian_portuguese": "Português",
     "english": "English",
-    "spanish": "Spanish",
-    "simplified_chinese": "Simplified Chinese",
-    "persian": "Persian"
+    "german": "German"
   },
   "menu": {
     "vpn": "VPNs",
