@@ -12,7 +12,7 @@
   import { useColors } from 'vuestic-ui'
   import { ref, watchEffect } from 'vue'
 
-  const { presets, applyPreset, colors } = useColors()
+  const { applyPreset } = useColors()
 
   const themeSwitch = ref()
   const currentTheme = ref(localStorage.getItem('theme') || 'light')

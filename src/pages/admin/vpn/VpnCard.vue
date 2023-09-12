@@ -48,7 +48,7 @@
   import vpn_toggle_card from './VpnToggleCard.vue'
   import vpn_info_card from './VpnInfoItemCard.vue'
 
-  const props = defineProps<{
+  defineProps<{
     vpn: any
     vpnStates: any
   }>()

@@ -57,7 +57,6 @@
 
 <script setup lang="ts">
   import { ref } from 'vue'
-  import { useGlobalConfig } from 'vuestic-ui/web-components'
   import { useGlobalStore } from '../../../stores/global-store'
 
   enum TOTPSetupStep {

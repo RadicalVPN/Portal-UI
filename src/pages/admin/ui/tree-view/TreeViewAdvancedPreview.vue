@@ -5,13 +5,7 @@
       <va-button @click="collapseAll">COLLAPSE ALL</va-button>
     </div>
 
-    <va-tree-view ref="treeView" v-model:expanded="expanded" :nodes="nodes">
-      <template #icon-toggle="{ expanded }">
-        <div class="tree-view-advanced-preview__icon-square">
-          <va-icon color="backgroundPrimary" :name="expanded ? 'remove' : 'add'" />
-        </div>
-      </template>
-    </va-tree-view>
+    <va-tree-view ref="treeView" v-model:expanded="expanded" :nodes="nodes" />
   </div>
 </template>
 
