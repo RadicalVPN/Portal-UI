@@ -32,16 +32,16 @@
 </template>
 
 <script setup lang="ts">
+  import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+  import vpn_card from './VpnCard.vue'
+  import { useGlobalStore } from '../../../stores/global-store'
+
   interface LastTxRxHash {
     [key: string]: {
       rx: number
       tx: number
     }
   }
-
-  import { computed, onBeforeUnmount, onMounted, onUnmounted, ref } from 'vue'
-  import vpn_card from './VpnCard.vue'
-  import { useGlobalStore } from '../../../stores/global-store'
 
   let busy = ref(false)
   const toggles = ref({} as any)
