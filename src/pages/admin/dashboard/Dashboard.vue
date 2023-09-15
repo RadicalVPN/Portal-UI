@@ -1,5 +1,7 @@
 <template>
   <div class="dashboard">
+    <dashboard-traffic />
+
     <dashboard-charts />
 
     <dashboard-info-block />
@@ -26,6 +28,7 @@
 <script setup lang="ts">
   import { ref } from 'vue'
 
+  import DashboardTraffic from './DashboardTraffic.vue'
   import DashboardCharts from './DashboardCharts.vue'
   import DashboardInfoBlock from './DashboardInfoBlock.vue'
   import DashboardTabs from './DashboardTabs.vue'

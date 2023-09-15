@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-12 gap-6">
+  <div class="pt-6 grid grid-cols-12 gap-6">
     <va-card v-if="lineChartDataGenerated" class="col-span-12 lg:col-span-6">
       <va-card-title>
         <h1>{{ t('dashboard.charts.trendyTrends') }}</h1>
