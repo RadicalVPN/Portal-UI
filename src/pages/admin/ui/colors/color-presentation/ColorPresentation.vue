@@ -16,7 +16,6 @@
 <script setup lang="ts">
   import { useColors, useToast } from 'vuestic-ui'
   import { computed, ref } from 'vue'
-  import { PlacementWithAlias } from 'vuestic-ui/dist/types/composables'
 
   const props = withDefaults(
     defineProps<{
@@ -35,7 +34,7 @@
     },
   )
 
-  const popoverOptions = ref<{ content: string; placement: PlacementWithAlias }>({
+  const popoverOptions = ref<{ content: string; placement: any }>({
     content: 'Click to copy the color to clipboard',
     placement: 'right',
   })

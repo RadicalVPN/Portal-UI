@@ -37,6 +37,7 @@
       scales: {
         y: {
           display: true,
+          stacked: true,
           ticks: {
             callback: (value: number) => formatBytes(value),
           },

@@ -35,10 +35,6 @@
   <va-modal v-model="showVpnQrModel" title="VPN QR Code" cancel-text="Cancel" blur>
     <img class="items-center" :src="`/api/2.0/vpn/${vpn.id}/qrcode`"
   /></va-modal>
-
-  <va-modal v-model="showVpnAddModel" title="Create VPN" ok-text="Create" cancel-text="Cancel" blur>
-    <va-input v-model="vpnAddAlias" class="mb-4" type="email" label="Alias" />
-  </va-modal>
 </template>
 
 <script setup lang="ts">
@@ -52,9 +48,6 @@
     vpn: any
     vpnStates: any
   }>()
-
-  const showVpnAddModel = ref(false)
-  const vpnAddAlias = ref('')
 
   const showVpnQrModel = ref(false)
 

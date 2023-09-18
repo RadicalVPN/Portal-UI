@@ -8,7 +8,7 @@
         <div class="col-span-4 flex justify-between items-center pr-4">
           <va-input v-model="vpnSearch" type="text" placeholder="Search..." clearable />
           <div class="ml-4">
-            <va-button icon="fa-plus" @click="showVpnAddModel = true" />
+            <va-button icon="fa-plus" @click="router.push({ name: 'vpn-add' })" />
           </div>
         </div>
       </va-card-content>
@@ -24,17 +24,22 @@
         <vpn_card :vpn="vpn" :vpn-states="vpnStates"></vpn_card>
       </va-card>
     </div>
-
-    <va-modal v-model="showVpnAddModel" title="Create VPN" ok-text="Create" cancel-text="Cancel" blur @ok="addVPN">
-      <va-input v-model="vpnAddAlias" class="mb-4" type="email" label="Alias" />
-    </va-modal>
   </div>
+
+  <va-modal v-model="showVpnAddModel" title="Create VPN" ok-text="Create" cancel-text="Cancel" @ok="addVPN">
+    <div class="flex flex-col items-start gap-2">
+      <va-date-input outline label="Select a Date" />
+      <va-select v-model="vpnNodeSearch" label="Select a VPN Server" searchable :options="vpnNodeOptions" />
+    </div>
+  </va-modal>
 </template>
 
 <script setup lang="ts">
   import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
   import vpn_card from './VpnCard.vue'
   import { useGlobalStore } from '../../../stores/global-store'
+  import { SelectableOption } from 'vuestic-ui/dist/types/composables'
+  import { useRouter } from 'vue-router'
 
   interface LastTxRxHash {
     [key: string]: {
@@ -46,6 +51,11 @@
   let busy = ref(false)
   const toggles = ref({} as any)
   const vpnStates = ref({} as LastTxRxHash)
+
+  const router = useRouter()
+
+  const vpnNodeSearch = ref('')
+  const vpnNodeOptions = ref<SelectableOption[]>(['test1', 'abc', 'johann', 'penis'])
   const showVpnAddModel = ref(false)
   const vpnAddAlias = ref('')
 
