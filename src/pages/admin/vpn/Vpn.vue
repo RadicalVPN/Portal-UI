@@ -25,20 +25,12 @@
       </va-card>
     </div>
   </div>
-
-  <va-modal v-model="showVpnAddModel" title="Create VPN" ok-text="Create" cancel-text="Cancel" @ok="addVPN">
-    <div class="flex flex-col items-start gap-2">
-      <va-date-input outline label="Select a Date" />
-      <va-select v-model="vpnNodeSearch" label="Select a VPN Server" searchable :options="vpnNodeOptions" />
-    </div>
-  </va-modal>
 </template>
 
 <script setup lang="ts">
   import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
   import vpn_card from './VpnCard.vue'
   import { useGlobalStore } from '../../../stores/global-store'
-  import { SelectableOption } from 'vuestic-ui/dist/types/composables'
   import { useRouter } from 'vue-router'
 
   interface LastTxRxHash {
@@ -53,12 +45,6 @@
   const vpnStates = ref({} as LastTxRxHash)
 
   const router = useRouter()
-
-  const vpnNodeSearch = ref('')
-  const vpnNodeOptions = ref<SelectableOption[]>(['test1', 'abc', 'johann', 'penis'])
-  const showVpnAddModel = ref(false)
-  const vpnAddAlias = ref('')
-
   const store = useGlobalStore()
 
   const vpnSearch = ref('')
@@ -68,22 +54,6 @@
 
   async function requestVPNs() {
     return (await (await fetch('/api/1.0/vpn')).json()).sort((a: any, b: any) => a.id - b.id)
-  }
-
-  async function addVPN() {
-    await fetch('/api/1.0/vpn', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        alias: vpnAddAlias.value,
-      }),
-    })
-    showVpnAddModel.value = false
-
-    //refetch vpns
-    store.vpns = await requestVPNs()
   }
 
   let refreshTimer: any

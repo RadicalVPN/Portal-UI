@@ -19,7 +19,11 @@ const routes: Array<RouteRecordRaw> = [
     component: AppLayout,
     beforeEnter: async (to, from, next) => {
       try {
-        useGlobalStore().user = await (await fetch('/api/1.0/auth')).json()
+        const store = useGlobalStore()
+
+        store.user = await (await fetch('/api/1.0/auth')).json()
+        store.server = await (await fetch('/api/1.0/server')).json()
+
         next()
       } catch {
         next('/auth/login')

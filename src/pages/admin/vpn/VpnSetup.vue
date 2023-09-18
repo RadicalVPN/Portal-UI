@@ -34,18 +34,53 @@
   import { ref } from 'vue'
   import { useRouter } from 'vue-router'
   import { SelectableOption } from 'vuestic-ui/dist/types/composables'
+  import { useGlobalStore } from '../../../stores/global-store'
 
   const router = useRouter()
+  const store = useGlobalStore()
 
   const vpnAlias = ref('')
   const vpnAliasErrors = ref<string[]>([])
 
-  const vpnNodeSearch = ref('')
-  const vpnNodeOptions = ref<SelectableOption[]>([{ code: 'gb', text: 'Information', icon: 'flag-icon-de large' }])
+  const vpnNodeSearch = ref<any>({})
+  const vpnNodeOptions = ref<SelectableOption[]>(
+    store.server.map((server) => ({
+      code: server.id,
+      text: `${server.city} - "${server.name}"`,
+      icon: `flag-icon-${server.country} large`,
+    })),
+  )
   const vpnNodeErrors = ref<string[]>([])
 
   async function saveVpn() {
     vpnAliasErrors.value = vpnAlias.value ? [] : ['Please enter an alias']
     vpnNodeErrors.value = vpnNodeSearch.value ? [] : ['Please select a VPN Server']
+
+    const res = await fetch('/api/1.0/vpn', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        alias: vpnAlias.value,
+        node: vpnNodeSearch.value.code,
+      }),
+    })
+
+    if (res.status === 200) {
+      console.log('valid')
+      router.push('vpn')
+      return
+    }
+
+    const json = await res.json()
+    json.errors.forEach((error: any) => {
+      const property = error.instancePath.split('/')[1]
+      switch (property) {
+        case 'alias':
+          vpnAliasErrors.value = [error.message]
+          break
+      }
+    })
   }
 </script>

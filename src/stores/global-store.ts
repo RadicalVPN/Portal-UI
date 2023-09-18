@@ -7,6 +7,13 @@ interface LastVpnTrafficHash {
   }
 }
 
+interface VpnServer {
+  id: number
+  name: string
+  country: string
+  city: string
+}
+
 export const useGlobalStore = defineStore('global', {
   state: () => {
     return {
@@ -20,6 +27,7 @@ export const useGlobalStore = defineStore('global', {
       },
       lastVpnTrafficHash: {} as LastVpnTrafficHash,
       vpns: [] as any[],
+      server: [] as VpnServer[],
     }
   },
   actions: {
