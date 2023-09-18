@@ -290,6 +290,7 @@
   },
   "menu": {
     "vpn": "VPNs",
+    "server": "Server",
     "auth": "Auth",
     "rating": "Rating",
     "buttons": "Buttons",

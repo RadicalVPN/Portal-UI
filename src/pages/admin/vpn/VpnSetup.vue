@@ -33,7 +33,6 @@
 <script setup lang="ts">
   import { ref } from 'vue'
   import { useRouter } from 'vue-router'
-  import { SelectableOption } from 'vuestic-ui/dist/types/composables'
   import { useGlobalStore } from '../../../stores/global-store'
 
   const router = useRouter()
@@ -43,7 +42,7 @@
   const vpnAliasErrors = ref<string[]>([])
 
   const vpnNodeSearch = ref<any>({})
-  const vpnNodeOptions = ref<SelectableOption[]>(
+  const vpnNodeOptions = ref<any[]>(
     store.server.map((server) => ({
       code: server.id,
       text: `${server.city} - "${server.name}"`,

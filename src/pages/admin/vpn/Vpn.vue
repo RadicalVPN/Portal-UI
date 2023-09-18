@@ -1,29 +1,27 @@
 <template>
-  <div class="vpn-page">
-    <va-card class="horizontal-bars">
-      <va-card-content class="my-3 grid grid-cols-12 gap-6">
-        <div class="col-span-8 flex items-center">
-          <span class="font-bold">Total VPNs: {{ store.vpns.length || 0 }}</span>
+  <va-card class="horizontal-bars">
+    <va-card-content class="my-3 grid grid-cols-12 gap-6">
+      <div class="col-span-8 flex items-center">
+        <span class="font-bold">Total VPNs: {{ store.vpns.length || 0 }}</span>
+      </div>
+      <div class="col-span-4 flex justify-between items-center pr-4">
+        <va-input v-model="vpnSearch" type="text" placeholder="Search..." clearable />
+        <div class="ml-4">
+          <va-button icon="fa-plus" @click="router.push({ name: 'vpn-add' })" />
         </div>
-        <div class="col-span-4 flex justify-between items-center pr-4">
-          <va-input v-model="vpnSearch" type="text" placeholder="Search..." clearable />
-          <div class="ml-4">
-            <va-button icon="fa-plus" @click="router.push({ name: 'vpn-add' })" />
-          </div>
-        </div>
-      </va-card-content>
-    </va-card>
+      </div>
+    </va-card-content>
+  </va-card>
 
-    <div class="grid grid-cols-12 gap-6">
-      <va-inner-loading v-if="busy" loading />
-      <va-card
-        v-for="(vpn, index) in filteredVpns"
-        :key="index"
-        class="vpn-page__cards va-text-center col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 overflow-clip"
-      >
-        <vpn_card :vpn="vpn" :vpn-states="vpnStates"></vpn_card>
-      </va-card>
-    </div>
+  <div class="grid grid-cols-12 gap-6">
+    <va-inner-loading v-if="busy" loading />
+    <va-card
+      v-for="(vpn, index) in filteredVpns"
+      :key="index"
+      class="vpn-page__cards va-text-center col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 overflow-clip"
+    >
+      <vpn_card :vpn="vpn" :vpn-states="vpnStates"></vpn_card>
+    </va-card>
   </div>
 </template>
 

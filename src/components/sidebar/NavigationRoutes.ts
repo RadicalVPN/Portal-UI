@@ -26,6 +26,13 @@ export default {
       },
     },
     {
+      name: 'server',
+      displayName: 'menu.server',
+      meta: {
+        icon: 'fa-server',
+      },
+    },
+    {
       name: 'statistics',
       displayName: 'menu.statistics',
       meta: {
