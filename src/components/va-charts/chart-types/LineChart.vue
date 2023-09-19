@@ -15,10 +15,24 @@
     PointElement,
     CategoryScale,
     Filler,
+    TimeScale,
+    LogarithmicScale,
   } from 'chart.js'
+  import 'chartjs-adapter-date-fns'
   import { TLineChartData } from '../../../data/types'
 
-  ChartJS.register(Title, Tooltip, Legend, LineElement, LinearScale, PointElement, CategoryScale, Filler)
+  ChartJS.register(
+    Title,
+    Tooltip,
+    Legend,
+    LineElement,
+    LinearScale,
+    PointElement,
+    CategoryScale,
+    TimeScale,
+    LogarithmicScale,
+    Filler,
+  )
 
   const props = defineProps<{
     chartData: TLineChartData

@@ -20,6 +20,7 @@
   import VaChart from '../../../components/va-charts/VaChart.vue'
   import { useChartData } from '../../../data/charts/composables/useChartData'
   import { useGlobalStore } from '../../../stores/global-store'
+  import 'chartjs-adapter-date-fns'
 
   const store = useGlobalStore()
   const dataSet = ref([])
@@ -35,12 +36,12 @@
   const chartOptions = computed<any>(() => {
     return {
       scales: {
+        x: {
+          type: 'time',
+        },
         y: {
-          display: true,
-          stacked: true,
-          ticks: {
-            callback: (value: number) => formatBytes(value),
-          },
+          type: 'logarithmic',
+          display: false,
         },
       },
       plugins: {
