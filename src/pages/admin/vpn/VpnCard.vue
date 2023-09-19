@@ -12,12 +12,11 @@
     <vpn_toggle_card :vpn="vpn" />
     <vpn_info_card title="IP" :value="vpn.status.allowedIps[0] || 'N/A'" />
     <vpn_info_card title="" :value="vpn.status.allowedIps?.[1]?.slice(13, -1) || 'N/A'" />
-    <!-- TODO: Use backend to get server name -->
     <va-card-content class="grid grid-cols-12">
       <div class="col-span-6 flex items-center">Server</div>
-      <div class="col-span-6 flex justify-between items-center pr-4">
-        <va-icon name="flag-icon-de small" />
-        <span class="ml-2">ger-001</span>
+      <div class="col-span-6 flex justify-between items-center pr-2">
+        <va-icon :name="vpnServerIcon" />
+        <span>{{ vpnServer?.name || 'N/A' }} </span>
       </div>
     </va-card-content>
 
@@ -38,20 +37,21 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { computed, ref } from 'vue'
   import { saveAs } from 'file-saver'
   import { useGlobalStore } from '../../../stores/global-store'
   import vpn_toggle_card from './VpnToggleCard.vue'
   import vpn_info_card from './VpnInfoItemCard.vue'
 
-  defineProps<{
+  const store = useGlobalStore()
+  const props = defineProps<{
     vpn: any
     vpnStates: any
   }>()
 
+  const vpnServer = computed(() => store.server.find((server) => server.id === props.vpn.node))
+  const vpnServerIcon = computed(() => `flag-icon-${vpnServer.value?.country} small`)
   const showVpnQrModel = ref(false)
-
-  const store = useGlobalStore()
 
   async function deleteVpn(id: number) {
     store.vpns = store.vpns.filter((vpn: any) => vpn.id !== id)
@@ -63,7 +63,7 @@
   async function downloadConfiguration(id: number, alias: string) {
     const data = await (await fetch(`/api/1.0/vpn/${id}/config`)).text()
     const blob = new Blob([data], { type: 'text/plain;charset=utf-8' })
-    saveAs(blob, `radical_vpn-${alias.replace(' ', '')}.conf`)
+    saveAs(blob, `radical_vpn-${alias.replaceAll(' ', '')}.conf`)
   }
 </script>
 
