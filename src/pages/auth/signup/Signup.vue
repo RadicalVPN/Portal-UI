@@ -18,13 +18,16 @@
       :error-messages="usernameErrors"
     />
 
+    <va-separator />
+
+    <va-input v-model="password" class="mb-4" type="password" :label="t('auth.password')" />
+
     <va-input
-      v-model="password"
+      v-model="passwordConfirm"
       class="mb-4"
       type="password"
-      :label="t('auth.password')"
-      :error="!!passwordErrors.length"
-      :error-messages="passwordErrors"
+      :rules="[(v) => v === password || `Passwords do not match`]"
+      :label="t('auth.passwordConfirm')"
     />
 
     <div class="auth-layout__options flex items-center justify-between">
@@ -60,6 +63,7 @@
 
   const email = ref('')
   const password = ref('')
+  const passwordConfirm = ref('')
   const username = ref('')
   const agreedToTerms = ref(false)
   const emailErrors = ref<string[]>([])
@@ -97,6 +101,10 @@
     passwordErrors.value = password.value ? [] : ['Password is required']
     usernameErrors.value = username.value ? [] : ['Username is required']
     agreedToTermsErrors.value = agreedToTerms.value ? [] : ['You must agree to the terms of use to continue']
+
+    if (password.value !== passwordConfirm.value) {
+      return
+    }
 
     if (!formReady.value) return
 

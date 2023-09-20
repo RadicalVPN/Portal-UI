@@ -6,6 +6,7 @@
     "email": "Email",
     "login": "Login",
     "password": "Password",
+    "passwordConfirm": "Confirm Password",
     "username": "Username",
     "recover_password": "Recover password",
     "sign_up": "Sign Up",
