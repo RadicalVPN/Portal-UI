@@ -15,7 +15,7 @@
 
             <div class="flex">
               <div class="text-sm mr-2">Version {{ _item.version }}</div>
-              <va-icon v-if="_item.download" name="fa-download" />
+              <va-icon name="fa-download" />
             </div>
           </va-card-content>
         </va-card>
@@ -40,14 +40,12 @@
         icon: MacOs,
         description: 'Manage your VPNs',
         version: '1.0.0',
-        download: true,
       },
       {
         name: 'Linux',
         icon: Linux,
         description: 'Manage your VPNs',
         version: '1.0.0',
-        download: true,
       },
     ],
     ['Mobile']: [
@@ -56,7 +54,6 @@
         icon: MacOs,
         description: 'Manage your VPNs',
         version: '1.0.0',
-        download: true,
       },
     ],
   })
