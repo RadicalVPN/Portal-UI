@@ -20,14 +20,10 @@
       </div>
     </va-card-content>
 
-    <div class="my-3 grid grid-cols-12 gap-6">
-      <div class="col-span-6 flex items-center">
-        <va-button icon="fa-qrcode" @click="showVpnQrModel = true"></va-button>
-      </div>
-      <div class="col-span-3"></div>
-      <div class="col-span-2">
-        <va-button icon="fa-download" @click="downloadConfiguration(vpn.id, vpn.alias)" />
-      </div>
+    <div class="flex">
+      <va-button icon="fa-qrcode" @click="showVpnQrModel = true"></va-button>
+      <va-spacer class="spacer" />
+      <va-button icon="fa-download" @click="downloadConfiguration(vpn.id, vpn.alias)" />
     </div>
   </va-card-content>
 

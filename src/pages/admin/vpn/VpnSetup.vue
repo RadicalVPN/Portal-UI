@@ -14,7 +14,7 @@
         <va-select
           v-model="vpnNodeSearch"
           label="Select a VPN Server"
-          autocomplete
+          searchable
           placeholder="Search a VPN Server"
           :options="vpnNodeOptions"
           :error="!!vpnNodeErrors.length"

@@ -292,6 +292,7 @@
   "menu": {
     "vpn": "VPNs",
     "server": "Server",
+    "apps": "Apps",
     "auth": "Auth",
     "rating": "Rating",
     "buttons": "Buttons",

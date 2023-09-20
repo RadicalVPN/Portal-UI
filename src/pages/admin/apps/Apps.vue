@@ -1,0 +1,63 @@
+<template>
+  <div>
+    <div v-for="([key, item], index) in Object.entries(items)" :key="index">
+      <div class="text-2xl font-bold mb-4">{{ key }}</div>
+
+      <div class="grid gap-4">
+        <va-card v-for="(_item, _index) in item" :key="_index" class="cursor-pointer">
+          <va-card-content class="flex items-center">
+            <component :is="_item.icon" class="mr-2" />
+
+            <div class="flex-1">
+              <div class="text-lg font-bold">{{ _item.name }}</div>
+              <div class="text-sm">{{ _item.description }}</div>
+            </div>
+
+            <div class="flex">
+              <div class="text-sm mr-2">Version {{ _item.version }}</div>
+              <va-icon v-if="_item.download" name="fa-download" />
+            </div>
+          </va-card-content>
+        </va-card>
+      </div>
+
+      <div class="mb-6"></div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+  import MacOs from '../../../components/icons/os/MacOS.vue'
+  import Linux from '../../../components/icons/os/Linux.vue'
+  import { ref } from 'vue'
+
+  const hover = ref(false)
+
+  const items = ref({
+    ['Desktops / Laptops']: [
+      {
+        name: 'macOS',
+        icon: MacOs,
+        description: 'Manage your VPNs',
+        version: '1.0.0',
+        download: true,
+      },
+      {
+        name: 'Linux',
+        icon: Linux,
+        description: 'Manage your VPNs',
+        version: '1.0.0',
+        download: true,
+      },
+    ],
+    ['Mobile']: [
+      {
+        name: 'macOS',
+        icon: MacOs,
+        description: 'Manage your VPNs',
+        version: '1.0.0',
+        download: true,
+      },
+    ],
+  })
+</script>

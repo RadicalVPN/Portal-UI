@@ -26,6 +26,13 @@ export default {
       },
     },
     {
+      name: 'apps',
+      displayName: 'menu.apps',
+      meta: {
+        icon: 'fa-cubes',
+      },
+    },
+    {
       name: 'server',
       displayName: 'menu.server',
       meta: {

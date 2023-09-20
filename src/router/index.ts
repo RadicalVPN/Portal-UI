@@ -51,6 +51,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('../pages/admin/vpn/VpnSetup.vue'),
       },
       {
+        name: 'apps',
+        path: 'apps',
+        component: () => import('../pages/admin/apps/Apps.vue'),
+      },
+      {
         name: 'server',
         path: 'server',
         component: () => import('../pages/admin/server/Server.vue'),
