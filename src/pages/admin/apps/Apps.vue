@@ -4,7 +4,12 @@
       <div class="text-2xl font-bold mb-4">{{ key }}</div>
 
       <div class="grid gap-4">
-        <va-card v-for="(_item, _index) in item" :key="_index" class="cursor-pointer">
+        <va-card
+          v-for="(_item, _index) in item"
+          :key="_index"
+          class="cursor-pointer"
+          @click="downloadClient(_item.url)"
+        >
           <va-card-content class="flex items-center">
             <component :is="_item.icon" class="mr-2" />
 
@@ -33,6 +38,7 @@
       icon: any
       description: string
       version: string
+      url: string
     }[]
   }
 
@@ -48,35 +54,44 @@
       {
         name: 'macOS',
         icon: MacOs,
-        description: 'Manage your VPNs',
-        version: '1.0.0',
+        description: 'Supports macOS 12.0+',
+        version: '1.0.16',
+        url: 'https://itunes.apple.com/us/app/wireguard/id1451685025?ls=1&mt=12',
       },
       {
         name: 'Windows',
         icon: Windows,
-        description: 'Manage your VPNs',
-        version: '1.0.0',
+        description: 'Supports Windows 7, 8.1, 10, 11',
+        version: '0.5.3',
+        url: 'https://download.wireguard.com/windows-client/wireguard-installer.exe',
       },
       {
         name: 'Linux',
         icon: Linux,
-        description: 'Manage your VPNs',
-        version: '1.0.0',
+        description: 'Support Depends on the distribution',
+        version: '1.0.2',
+        url: 'https://www.wireguard.com/install/',
       },
     ],
     ['Mobile']: [
       {
         name: 'iOS',
         icon: Ios,
-        description: 'Manage your VPNs',
-        version: '1.0.0',
+        description: 'Supports iOS 15.0+',
+        version: '1.0.16',
+        url: 'https://itunes.apple.com/us/app/wireguard/id1441195209?ls=1&mt=8',
       },
       {
         name: 'Android',
         icon: Android,
-        description: 'Manage your VPNs',
-        version: '1.0.0',
+        description: 'Supports Android 5.0+',
+        version: '1.0.2',
+        url: 'https://play.google.com/store/apps/details?id=com.wireguard.android',
       },
     ],
   })
+
+  function downloadClient(url: string) {
+    window.open(url, '_blank')
+  }
 </script>
