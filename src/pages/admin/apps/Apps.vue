@@ -27,6 +27,15 @@
 </template>
 
 <script setup lang="ts">
+  interface Apps {
+    [key: string]: {
+      name: string
+      icon: any
+      description: string
+      version: string
+    }[]
+  }
+
   import MacOs from '../../../components/icons/os/MacOS.vue'
   import Linux from '../../../components/icons/os/Linux.vue'
   import Windows from '../../../components/icons/os/Windows.vue'
@@ -34,7 +43,7 @@
   import Android from '../../../components/icons/os/Android.vue'
   import { ref } from 'vue'
 
-  const items = ref({
+  const items = ref<Apps>({
     ['Desktops / Laptops']: [
       {
         name: 'macOS',
