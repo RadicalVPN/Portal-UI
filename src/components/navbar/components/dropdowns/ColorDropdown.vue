@@ -11,8 +11,10 @@
 <script setup lang="ts">
   import { useColors } from 'vuestic-ui'
   import { ref, watchEffect } from 'vue'
+  import { useGlobalStore } from '../../../../stores/global-store'
 
   const { applyPreset } = useColors()
+  const store = useGlobalStore()
 
   const themeSwitch = ref()
   const currentTheme = ref(localStorage.getItem('theme') || 'light')
@@ -24,6 +26,8 @@
   function setTheme(theme: string) {
     localStorage.setItem('theme', theme)
     themeSwitch.value = theme === 'light'
+    store.theme = theme
+
     applyPreset(theme)
   }
 </script>

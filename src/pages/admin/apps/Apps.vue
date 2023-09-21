@@ -32,6 +32,13 @@
 </template>
 
 <script setup lang="ts">
+  import MacOs from '../../../components/icons/os/MacOS.vue'
+  import Linux from '../../../components/icons/os/Linux.vue'
+  import Windows from '../../../components/icons/os/Windows.vue'
+  import Ios from '../../../components/icons/os/iOS.vue'
+  import Android from '../../../components/icons/os/Android.vue'
+  import { ref } from 'vue'
+
   interface Apps {
     [key: string]: {
       name: string
@@ -41,13 +48,6 @@
       url: string
     }[]
   }
-
-  import MacOs from '../../../components/icons/os/MacOS.vue'
-  import Linux from '../../../components/icons/os/Linux.vue'
-  import Windows from '../../../components/icons/os/Windows.vue'
-  import Ios from '../../../components/icons/os/iOS.vue'
-  import Android from '../../../components/icons/os/Android.vue'
-  import { ref } from 'vue'
 
   const items = ref<Apps>({
     ['Desktops / Laptops']: [
