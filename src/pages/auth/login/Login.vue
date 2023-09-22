@@ -12,11 +12,15 @@
     <va-input
       v-model="password"
       class="mb-4"
-      type="password"
+      :type="isPasswordVisible ? 'text' : 'password'"
       :label="t('auth.password')"
       :error="!!passwordErrors.length"
       :error-messages="passwordErrors"
-    />
+      @click-append-inner="isPasswordVisible = !isPasswordVisible"
+    >
+      <template #appendInner>
+        <va-icon :name="isPasswordVisible ? 'visibility_off' : 'visibility'" size="small" color="primary" /> </template
+    ></va-input>
 
     <va-input
       v-if="showTotp === true"
@@ -52,6 +56,7 @@
 
   const password = ref('')
   const passwordErrors = ref<string[]>([])
+  const isPasswordVisible = ref<boolean>(false)
 
   const showTotp = ref<boolean>(false)
   const totp = ref('')
