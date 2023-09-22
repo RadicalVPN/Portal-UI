@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="onsubmit()">
+  <va-form tag="form" @submit.prevent="onsubmit()">
     <va-input
       v-model="email"
       class="mb-4"
@@ -66,9 +66,9 @@
     </div>
 
     <div class="flex justify-center mt-4">
-      <va-button class="my-0" @click="onsubmit">{{ t('auth.sign_up') }}</va-button>
+      <va-button type="submit" class="my-0" @click="onsubmit">{{ t('auth.sign_up') }}</va-button>
     </div>
-  </form>
+  </va-form>
 </template>
 
 <script setup lang="ts">
