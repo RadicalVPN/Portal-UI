@@ -1,9 +1,7 @@
 <template>
   <div class="auth-layout grid grid-cols-12 content-center">
     <div class="flex col-span-12 p-4 justify-center">
-      <router-link class="py-5 justify-center flex" to="/">
-        <radical-logo height="80" />
-      </router-link>
+      <radical-logo height="80" />
     </div>
 
     <div class="flex justify-center col-span-12 p-4">
