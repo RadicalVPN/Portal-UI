@@ -20,15 +20,27 @@
 
     <va-separator />
 
-    <va-input v-model="password" class="mb-4" type="password" :label="t('auth.password')" />
+    <va-input
+      v-model="password"
+      :type="isPasswordVisible ? 'text' : 'password'"
+      class="mb-4"
+      :label="t('auth.password')"
+      @click-append-inner="isPasswordVisible = !isPasswordVisible"
+    >
+      <template #appendInner>
+        <va-icon :name="isPasswordVisible ? 'visibility_off' : 'visibility'" size="small" color="primary" /> </template
+    ></va-input>
 
     <va-input
       v-model="passwordConfirm"
+      :typeq="isPasswordVisible ? 'text' : 'password'"
       class="mb-4"
-      type="password"
       :rules="[(v) => v === password || `Passwords do not match`]"
       :label="t('auth.passwordConfirm')"
-    />
+      @click-append-inner="isPasswordVisible = !isPasswordVisible"
+      ><template #appendInner>
+        <va-icon :name="isPasswordVisible ? 'visibility_off' : 'visibility'" size="small" color="primary" /> </template
+    ></va-input>
 
     <div class="auth-layout__options flex items-center justify-between">
       <va-checkbox
@@ -70,6 +82,7 @@
   const agreedToTerms = ref(false)
   const emailErrors = ref<string[]>([])
   const passwordErrors = ref<string[]>([])
+  const isPasswordVisible = ref<boolean>(false)
   const agreedToTermsErrors = ref<string[]>([])
   const usernameErrors = ref<string[]>([])
   const router = useRouter()
