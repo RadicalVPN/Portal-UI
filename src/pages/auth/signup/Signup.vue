@@ -59,7 +59,9 @@
   import { ref, computed } from 'vue'
   import { useRouter } from 'vue-router'
   import { useI18n } from 'vue-i18n'
+  import { useToast } from 'vuestic-ui'
   const { t } = useI18n()
+  const { init } = useToast()
 
   const email = ref('')
   const password = ref('')
@@ -70,6 +72,7 @@
   const passwordErrors = ref<string[]>([])
   const agreedToTermsErrors = ref<string[]>([])
   const usernameErrors = ref<string[]>([])
+  const router = useRouter()
 
   const formReady = computed(() => {
     return !(emailErrors.value.length || passwordErrors.value.length || agreedToTermsErrors.value.length)
@@ -109,6 +112,14 @@
     if (!formReady.value) return
 
     const auth = await authenticate(email.value, username.value, password.value)
+
+    //check if auth is a UserCreationError response
+    if (auth?.name && auth?.message) {
+      emailErrors.value = [auth.message]
+      usernameErrors.value = [auth.message]
+      return
+    }
+
     if (auth?.valid === false) {
       auth.errors.forEach((error: any) => {
         const property = error.instancePath.split('/')[1]
@@ -128,6 +139,13 @@
 
     if (!formReady.value) return
 
-    useRouter().push({ name: 'dashboard' })
+    init({
+      message: "You've successfully registered!\nWelcome to RadicalVPN!",
+      position: 'top-right',
+      duration: 10000,
+      color: 'success',
+    })
+
+    router.push({ name: 'login' })
   }
 </script>
