@@ -33,13 +33,17 @@
 
     <va-input
       v-model="passwordConfirm"
-      :typeq="isPasswordVisible ? 'text' : 'password'"
+      :type="isPasswordConfirmVisible ? 'text' : 'password'"
       class="mb-4"
       :rules="[(v) => v === password || `Passwords do not match`]"
       :label="t('auth.passwordConfirm')"
-      @click-append-inner="isPasswordVisible = !isPasswordVisible"
+      @click-append-inner="isPasswordConfirmVisible = !isPasswordConfirmVisible"
       ><template #appendInner>
-        <va-icon :name="isPasswordVisible ? 'visibility_off' : 'visibility'" size="small" color="primary" /> </template
+        <va-icon
+          :name="isPasswordConfirmVisible ? 'visibility_off' : 'visibility'"
+          size="small"
+          color="primary"
+        /> </template
     ></va-input>
 
     <div class="auth-layout__options flex items-center justify-between">
@@ -83,6 +87,7 @@
   const emailErrors = ref<string[]>([])
   const passwordErrors = ref<string[]>([])
   const isPasswordVisible = ref<boolean>(false)
+  const isPasswordConfirmVisible = ref<boolean>(false)
   const agreedToTermsErrors = ref<string[]>([])
   const usernameErrors = ref<string[]>([])
   const router = useRouter()
