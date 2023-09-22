@@ -2,7 +2,7 @@
   <va-card-title style="font-size: 0.875rem">
     {{ vpn.alias }}
     <va-spacer />
-    <va-button size="small" icon="fa-trash" color="danger" @click="deleteVpn(vpn.id)" />
+    <va-icon name="fa-trash" color="secondary" @click="deleteVpn(vpn.id)" />
   </va-card-title>
 
   <va-card-content>

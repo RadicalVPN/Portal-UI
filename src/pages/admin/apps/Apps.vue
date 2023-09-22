@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="([key, item], index) in Object.entries(items)" :key="index">
-      <div class="text-2xl font-bold mb-4">{{ key }}</div>
+      <h1 style="color: var(--va-text-primary)" class="va-h4 mb-4">{{ key }}</h1>
 
       <div class="grid gap-4">
         <va-card
@@ -19,7 +19,7 @@
             </div>
 
             <div class="flex">
-              <div class="text-sm mr-2">Version {{ _item.version }}</div>
+              <div class="text-sm mr-5">Version {{ _item.version }}</div>
               <va-icon name="fa-download" />
             </div>
           </va-card-content>
