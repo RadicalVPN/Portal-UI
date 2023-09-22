@@ -3,7 +3,7 @@
     <va-card
       v-for="(server, index) in store.server"
       :key="index"
-      class="vpn-page__cards va-text-center col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 overflow-clip"
+      class="vpn-page__cards va-text-center col-span-12 sm:col-span-5 lg:col-span-3 xl:col-span-3 overflow-clip pt-2"
     >
       <span
         class="fi fi-de fi-size-large"
@@ -11,7 +11,7 @@
           height: 100px;
           max-width: 1000px;
           position: relative;
-          width: 100%;
+          width: 80%;
           background-repeat: unset;
           background-position: unset;
           background-size: unset;
