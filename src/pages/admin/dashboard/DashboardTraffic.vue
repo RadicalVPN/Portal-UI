@@ -35,6 +35,11 @@
 
   const chartOptions = computed<any>(() => {
     return {
+      elements: {
+        point: {
+          radius: 2,
+        },
+      },
       scales: {
         x: {
           type: 'time',
