@@ -8,9 +8,9 @@
           :color="colors.primary"
           @click="isSidebarMinimized = !isSidebarMinimized"
         />
-        <router-link to="/">
-          <radical-logo height="35" width="100" />
-        </router-link>
+        <a href="/">
+          <radical-logo href="/" height="35" width="100" />
+        </a>
       </div>
     </template>
     <template #right>

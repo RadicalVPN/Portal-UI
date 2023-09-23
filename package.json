@@ -12,7 +12,7 @@
     "lint": "eslint --fix \"./src/**/*.{ts,js,vue}\"",
     "format": "prettier --write .",
     "preview": "vite preview",
-    "deploy": "npm run build && rsync -avz --delete dist/ root@116.203.225.81:/opt/RadicalVPN/Frontend"
+    "deploy": "npm run build && rsync -avz --delete dist/ root@116.203.225.81:/opt/RadicalVPN/Frontend/portal"
   },
   "lint-staged": {
     "./src/**/*.{ts,js,vue}": [
