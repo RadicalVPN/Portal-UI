@@ -1,16 +1,9 @@
 <template>
   <div class="dashboard">
-    <dashboard-traffic />
-
-    <dashboard-charts />
-
     <dashboard-info-block />
 
-    <div class="grid grid-cols-12 gap-6">
-      <dashboard-tabs class="col-span-12 lg:col-span-6" @submit="addAddressToMap" />
+    <dashboard-traffic />
 
-      <dashboard-map ref="dashboardMap" class="col-span-12 lg:col-span-6" />
-    </div>
     <div class="flex justify-center mt-2">
       <va-button
         class="mr-2"

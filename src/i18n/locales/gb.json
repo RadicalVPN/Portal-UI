@@ -130,6 +130,9 @@
       "commits": "Commits"
     },
     "info": {
+      "vpns": "Total VPNs",
+      "trafficUp": "Total Upload 24h",
+      "trafficDown": "Total Download 24h",
       "componentRichTheme": "component-rich theme",
       "completedPullRequests": "completed pull requests",
       "users": "users",
