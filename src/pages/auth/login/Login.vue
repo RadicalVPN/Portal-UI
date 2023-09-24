@@ -119,6 +119,27 @@
 
     const authenticated = await authenticate(email.value, password.value, totp.value)
     if (!authenticated.success) {
+      if (authenticated.statusCode === 400) {
+        const data = JSON.parse(authenticated.data as string)
+
+        console.log('schema error')
+        console.log(data)
+
+        data.errors.forEach((error: any) => {
+          const property = error.instancePath.split('/')[1]
+          switch (property) {
+            case 'email':
+              emailErrors.value = [error.message]
+              break
+            case 'password':
+              passwordErrors.value = [error.message]
+              break
+          }
+        })
+
+        return
+      }
+
       if (authenticated.statusCode != 401) {
         emailErrors.value = ['Unknown error']
         passwordErrors.value = ['Unknown error']
