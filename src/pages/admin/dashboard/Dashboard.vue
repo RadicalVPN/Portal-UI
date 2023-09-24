@@ -19,16 +19,8 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
-
   import DashboardTraffic from './DashboardTraffic.vue'
   import DashboardInfoBlock from './DashboardInfoBlock.vue'
-
-  const dashboardMap = ref()
-
-  function addAddressToMap({ city, country }: { city: { text: string }; country: string }) {
-    dashboardMap.value.addAddress({ city: city.text, country })
-  }
 </script>
 
 <style lang="scss">
