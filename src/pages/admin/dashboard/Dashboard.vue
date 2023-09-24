@@ -22,12 +22,7 @@
   import { ref } from 'vue'
 
   import DashboardTraffic from './DashboardTraffic.vue'
-  import DashboardCharts from './DashboardCharts.vue'
   import DashboardInfoBlock from './DashboardInfoBlock.vue'
-  import DashboardTabs from './DashboardTabs.vue'
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  import DashboardMap from './DashboardMap.vue'
 
   const dashboardMap = ref()
 
