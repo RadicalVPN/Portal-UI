@@ -122,9 +122,6 @@
       if (authenticated.statusCode === 400) {
         const data = JSON.parse(authenticated.data as string)
 
-        console.log('schema error')
-        console.log(data)
-
         data.errors.forEach((error: any) => {
           const property = error.instancePath.split('/')[1]
           switch (property) {
