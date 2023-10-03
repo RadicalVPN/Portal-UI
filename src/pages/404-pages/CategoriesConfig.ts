@@ -22,19 +22,6 @@ export default [
     ],
   },
   {
-    categoryName: 'Forms',
-    items: [
-      {
-        itemName: 'Form Elements',
-        itemLink: '/admin/forms/form-elements',
-      },
-      {
-        itemName: 'Medium Editor',
-        itemLink: '/admin/forms/medium-editor',
-      },
-    ],
-  },
-  {
     categoryName: 'Tables',
     items: [
       {

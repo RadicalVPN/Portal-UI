@@ -58,24 +58,6 @@ export default {
       ],
     },
     {
-      name: 'forms',
-      displayName: 'menu.forms',
-      meta: {
-        icon: 'vuestic-iconset-forms',
-      },
-      disabled: true,
-      children: [
-        {
-          name: 'form-elements',
-          displayName: 'menu.formElements',
-        },
-        {
-          name: 'medium-editor',
-          displayName: 'menu.mediumEditor',
-        },
-      ],
-    },
-    {
       name: 'ui',
       displayName: 'menu.uiElements',
       meta: {
