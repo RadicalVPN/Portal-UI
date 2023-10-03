@@ -12,6 +12,7 @@ interface VpnServer {
   name: string
   country: string
   city: string
+  online: boolean
 }
 
 export const useGlobalStore = defineStore('global', {
@@ -35,7 +36,9 @@ export const useGlobalStore = defineStore('global', {
     toggleSidebar() {
       this.isSidebarMinimized = !this.isSidebarMinimized
     },
-
+    async refreshServerList() {
+      this.server = await (await fetch('/api/1.0/server')).json()
+    },
     changeUserName(userName: string) {
       this.user.username = userName
     },

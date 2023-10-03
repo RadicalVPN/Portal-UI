@@ -16,7 +16,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://116.203.225.81:8080',
+        target: 'https://radicalvpn.com',
         changeOrigin: true,
         secure: false,
       },
