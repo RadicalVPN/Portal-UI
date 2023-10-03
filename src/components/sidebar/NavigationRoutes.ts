@@ -76,23 +76,6 @@ export default {
       ],
     },
     {
-      name: 'tables',
-      displayName: 'menu.tables',
-      meta: {
-        icon: 'vuestic-iconset-tables',
-      },
-      children: [
-        {
-          name: 'markup',
-          displayName: 'menu.markupTables',
-        },
-        // {
-        //   name: 'data',
-        //   displayName: 'menu.dataTables',
-        // },
-      ],
-    },
-    {
       name: 'ui',
       displayName: 'menu.uiElements',
       meta: {

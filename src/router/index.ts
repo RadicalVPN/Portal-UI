@@ -154,29 +154,6 @@ const routes: Array<RouteRecordRaw> = [
         ],
       },
       {
-        name: 'tables',
-        path: 'tables',
-        component: RouteViewComponent,
-        children: [
-          {
-            name: 'markup',
-            path: 'markup',
-            component: () => import('../pages/admin/tables/markup-tables/MarkupTables.vue'),
-            meta: {
-              wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Tables',
-            },
-          },
-          {
-            name: 'data',
-            path: 'data',
-            component: () => import('../pages/admin/tables/data-tables/DataTables.vue'),
-            meta: {
-              wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Tables',
-            },
-          },
-        ],
-      },
-      {
         name: 'pages',
         path: 'pages',
         component: RouteViewComponent,
