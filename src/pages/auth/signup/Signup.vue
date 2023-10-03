@@ -66,7 +66,7 @@
     </div>
 
     <div class="flex justify-center mt-4">
-      <va-button type="submit" class="my-0" @click="onsubmit">{{ t('auth.sign_up') }}</va-button>
+      <va-button type="submit" :loading="registering" class="my-0" @click="onsubmit">{{ t('auth.sign_up') }}</va-button>
     </div>
   </va-form>
 </template>
@@ -92,11 +92,13 @@
   const usernameErrors = ref<string[]>([])
   const router = useRouter()
 
+  const registering = ref(false)
+
   const formReady = computed(() => {
     return !(emailErrors.value.length || passwordErrors.value.length || agreedToTermsErrors.value.length)
   })
 
-  async function authenticate(email: string, username: string, password: string) {
+  async function register(email: string, username: string, password: string) {
     try {
       return await (
         await fetch('/api/1.0/auth/register', {
@@ -129,7 +131,9 @@
 
     if (!formReady.value) return
 
-    const auth = await authenticate(email.value, username.value, password.value)
+    registering.value = true
+    const auth = await register(email.value, username.value, password.value)
+    registering.value = false
 
     //check if auth is a UserCreationError response
     if (auth?.name && auth?.message) {
