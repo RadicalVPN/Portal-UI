@@ -75,7 +75,7 @@
     }
   }
 
-  async function authenticate(email: string, password: string, totp: string) {
+  async function authenticate(email: string, password: string, totp: string, rememberMe = false) {
     try {
       const res = await fetch('/api/1.0/auth', {
         method: 'POST',
@@ -85,6 +85,7 @@
           ...(totp && {
             totpToken: totp,
           }),
+          rememberMe,
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -117,7 +118,7 @@
 
     if (!formReady.value) return
 
-    const authenticated = await authenticate(email.value, password.value, totp.value)
+    const authenticated = await authenticate(email.value, password.value, totp.value, keepLoggedIn.value)
     if (!authenticated.success) {
       if (authenticated.statusCode === 400) {
         const data = JSON.parse(authenticated.data as string)
