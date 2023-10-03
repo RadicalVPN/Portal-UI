@@ -5,7 +5,6 @@ import AppLayout from '../layouts/AppLayout.vue'
 import Page404Layout from '../layouts/Page404Layout.vue'
 
 import RouteViewComponent from '../layouts/RouterBypass.vue'
-import UIRoute from '../pages/admin/ui/route'
 import { useGlobalStore } from '../stores/global-store'
 
 const routes: Array<RouteRecordRaw> = [
@@ -77,7 +76,6 @@ const routes: Array<RouteRecordRaw> = [
           },
         ],
       },
-      UIRoute,
     ],
   },
   {
