@@ -40,7 +40,9 @@
     </div>
 
     <div class="flex justify-center mt-4">
-      <va-button type="submit" class="my-0" @click="onsubmit">{{ t('auth.login') }}</va-button>
+      <va-button type="submit" class="my-0" :loading="authenticating" @click="onsubmit">{{
+        t('auth.login')
+      }}</va-button>
     </div>
   </va-form>
 </template>
@@ -65,6 +67,8 @@
   const keepLoggedIn = ref(false)
   const router = useRouter()
   const formReady = computed(() => !emailErrors.value.length && !passwordErrors.value.length)
+
+  const authenticating = ref(false)
 
   async function checkAuth(): Promise<any> {
     try {
@@ -118,7 +122,10 @@
 
     if (!formReady.value) return
 
+    authenticating.value = true
     const authenticated = await authenticate(email.value, password.value, totp.value, keepLoggedIn.value)
+    authenticating.value = false
+
     if (!authenticated.success) {
       if (authenticated.statusCode === 400) {
         const data = JSON.parse(authenticated.data as string)
