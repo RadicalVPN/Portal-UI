@@ -31,9 +31,8 @@
         "
       ></span>
 
-      <va-card-title>{{ server.name }}</va-card-title>
-
       <va-card-content>
+        <vpn_info_card title="Name" :value="server.hostname" />
         <vpn_info_card title="Country" :value="server.country" />
         <vpn_info_card title="City" :value="server.city" />
 

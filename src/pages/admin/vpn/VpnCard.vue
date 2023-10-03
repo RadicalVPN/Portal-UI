@@ -16,7 +16,7 @@
       <div class="col-span-6 flex items-center">Server</div>
       <div class="col-span-6 flex justify-between items-center pr-2">
         <va-icon :name="vpnServerIcon" />
-        <span>{{ vpnServer?.name || 'N/A' }} </span>
+        <span>{{ vpnServer?.hostname || 'N/A' }} </span>
       </div>
     </va-card-content>
 

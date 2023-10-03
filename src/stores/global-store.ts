@@ -8,10 +8,14 @@ interface LastVpnTrafficHash {
 }
 
 interface VpnServer {
-  id: number
-  name: string
+  id: string
+  hostname: string
   country: string
   city: string
+  internal_ip: string
+  external_ip: string
+  public_key: string
+  private_key: string
   online: boolean
 }
 

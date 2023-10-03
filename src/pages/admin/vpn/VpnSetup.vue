@@ -45,7 +45,7 @@
   const vpnNodeOptions = ref<any[]>(
     store.server.map((server) => ({
       code: server.id,
-      text: `${server.city} - "${server.name}"`,
+      text: `${server.city} - "${server.hostname}"`,
       icon: `flag-icon-${server.country} large`,
     })),
   )
