@@ -18,20 +18,16 @@
       :key="index"
       class="vpn-page__cards va-text-center col-span-12 sm:col-span-5 lg:col-span-3 xl:col-span-3 overflow-clip pt-2"
     >
-      <span
-        :class="`fi fi-${server.country} fi-size-large`"
-        style="
-          height: 100px;
-          max-width: 1000px;
-          position: relative;
-          width: 80%;
-          background-repeat: unset;
-          background-position: unset;
-          background-size: unset;
-        "
-      ></span>
+      <div style="display: flex; justify-content: center; align-items: center">
+        <span
+          :class="`fi fi-${server.country} fi-size-large`"
+          style="height: 85px; max-width: 1000px; width: 100%"
+        ></span>
+      </div>
 
       <va-card-content>
+        <va-divider />
+
         <vpn_info_card title="Name" :value="server.hostname" />
         <vpn_info_card title="Country" :value="server.country" />
         <vpn_info_card title="City" :value="server.city" />
