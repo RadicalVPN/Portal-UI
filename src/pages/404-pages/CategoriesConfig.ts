@@ -9,19 +9,6 @@ export default [
     ],
   },
   {
-    categoryName: 'Statistics',
-    items: [
-      {
-        itemName: 'Charts',
-        itemLink: '/admin/statistics/charts',
-      },
-      {
-        itemName: 'Progress bars',
-        itemLink: '/admin/statistics/progress-bars',
-      },
-    ],
-  },
-  {
     categoryName: 'Tables',
     items: [
       {

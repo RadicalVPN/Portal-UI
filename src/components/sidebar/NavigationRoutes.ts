@@ -40,24 +40,6 @@ export default {
       },
     },
     {
-      name: 'statistics',
-      displayName: 'menu.statistics',
-      meta: {
-        icon: 'vuestic-iconset-statistics',
-      },
-      disabled: true,
-      children: [
-        {
-          name: 'charts',
-          displayName: 'menu.charts',
-        },
-        {
-          name: 'progress-bars',
-          displayName: 'menu.progressBars',
-        },
-      ],
-    },
-    {
       name: 'ui',
       displayName: 'menu.uiElements',
       meta: {
