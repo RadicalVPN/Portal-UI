@@ -11,7 +11,6 @@
     width="467"
     version="1.1"
   >
-    <desc id="desc2">Created with Fabric.js 2.4.6</desc>
     <defs id="defs4" />
     <g id="g10" transform="translate(345.49,81.68)">
       <g
