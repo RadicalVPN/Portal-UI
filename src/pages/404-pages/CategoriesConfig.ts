@@ -107,29 +107,4 @@ export default [
       },
     ],
   },
-  {
-    categoryName: 'Maps',
-    items: [
-      {
-        itemName: 'MapLibre Maps',
-        itemLink: '/admin/maps/maplibre-maps',
-      },
-      {
-        itemName: 'Yandex Maps',
-        itemLink: '/admin/maps/yandex-maps',
-      },
-      {
-        itemName: 'Leaflet Maps',
-        itemLink: '/admin/maps/leaflet-maps',
-      },
-      {
-        itemName: 'Bubble Maps',
-        itemLink: '/admin/maps/bubble-maps',
-      },
-      {
-        itemName: 'Line Maps',
-        itemLink: '/admin/maps/line-maps',
-      },
-    ],
-  },
 ]
