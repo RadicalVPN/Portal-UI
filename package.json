@@ -33,7 +33,7 @@
     "ionicons": "^4.6.3",
     "leaflet": "^1.8.0",
     "leaflet-map": "^0.2.1",
-    "maplibre-gl": "^2.1.9",
+    "maplibre-gl": "^3.3.1",
     "medium-editor": "^5.23.3",
     "pinia": "^2.0.16",
     "register-service-worker": "^1.7.1",
