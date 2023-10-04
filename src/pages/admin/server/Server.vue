@@ -18,7 +18,7 @@
       :key="index"
       class="vpn-page__cards va-text-center col-span-12 sm:col-span-5 lg:col-span-3 xl:col-span-3 overflow-clip pt-2"
     >
-      <div style="display: flex; justify-content: center; align-items: center">
+      <div class="flex justify-center items-center">
         <span
           :class="`fi fi-${server.country} fi-size-large`"
           style="height: 85px; max-width: 1000px; width: 100%"
