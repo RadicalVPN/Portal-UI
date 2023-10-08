@@ -11,7 +11,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     name: 'admin',
-    path: '/admin',
+    path: '/',
     component: AppLayout,
     beforeEnter: async (to, from, next) => {
       try {
