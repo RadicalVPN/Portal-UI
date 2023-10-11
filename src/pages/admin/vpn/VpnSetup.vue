@@ -43,11 +43,13 @@
 
   const vpnNodeSearch = ref<any>({})
   const vpnNodeOptions = ref<any[]>(
-    store.server.map((server) => ({
-      code: server.id,
-      text: `${server.city} - "${server.hostname}"`,
-      icon: `flag-icon-${server.country} large`,
-    })),
+    store.server
+      .filter((server) => server.online)
+      .map((server) => ({
+        code: server.id,
+        text: `${server.city} - "${server.hostname}"`,
+        icon: `flag-icon-${server.country} large`,
+      })),
   )
   const vpnNodeErrors = ref<string[]>([])
 
