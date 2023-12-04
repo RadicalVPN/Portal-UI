@@ -1,5 +1,5 @@
 <template>
-  <va-form tag="form" @submit.prevent="onsubmit()">
+  <va-form tag="form" @submit.prevent="">
     <va-input
       v-model="email"
       class="mb-4"
@@ -25,6 +25,8 @@
       :type="isPasswordVisible ? 'text' : 'password'"
       class="mb-4"
       :label="t('auth.password')"
+      :error="!!passwordErrors.length"
+      :error-messages="passwordErrors"
       @click-append-inner="isPasswordVisible = !isPasswordVisible"
     >
       <template #appendInner>
@@ -37,6 +39,8 @@
       class="mb-4"
       :rules="[(v) => v === password || `Passwords do not match`]"
       :label="t('auth.passwordConfirm')"
+      :error="!!passwordErrors.length"
+      :error-messages="passwordErrors"
       @click-append-inner="isPasswordConfirmVisible = !isPasswordConfirmVisible"
       ><template #appendInner>
         <va-icon
@@ -157,9 +161,9 @@
             break
         }
       })
-    }
 
-    if (!formReady.value) return
+      return
+    }
 
     init({
       message: "You've successfully registered!\nWelcome to RadicalVPN!",
