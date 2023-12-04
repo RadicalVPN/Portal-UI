@@ -80,6 +80,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('../pages/auth/login/Login.vue'),
       },
       {
+        name: 'logout',
+        path: 'logout',
+        component: () => import('../pages/auth/login/Logout.vue'),
+      },
+      {
         name: 'signup',
         path: 'signup',
         component: () => import('../pages/auth/signup/Signup.vue'),

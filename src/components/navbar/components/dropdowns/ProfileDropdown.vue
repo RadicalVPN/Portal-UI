@@ -88,7 +88,7 @@
           list: [
             {
               name: 'logout',
-              redirectTo: '',
+              redirectTo: 'auth/logout',
               icon: 'logout',
             },
           ],
