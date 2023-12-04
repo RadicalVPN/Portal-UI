@@ -1,3 +1,4 @@
+import { useStorage } from '@vueuse/core'
 import { defineStore } from 'pinia'
 
 interface LastVpnTrafficHash {
@@ -34,13 +35,10 @@ export const useGlobalStore = defineStore('global', {
       lastVpnTrafficHash: {} as LastVpnTrafficHash,
       vpns: [] as any[],
       server: [] as VpnServer[],
-      theme: 'light',
+      theme: useStorage('theme', 'dark'),
     }
   },
   actions: {
-    toggleSidebar() {
-      this.isSidebarMinimized = !this.isSidebarMinimized
-    },
     async refreshServerList() {
       this.server = await (await fetch('/api/1.0/server')).json()
     },

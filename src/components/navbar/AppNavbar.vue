@@ -9,7 +9,7 @@
             @click="isSidebarMinimized = !isSidebarMinimized"
           />
         </Transition>
-        <RouterLink to="/">
+        <RouterLink to="/dashboard">
           <RadicalLogo />
         </RouterLink>
       </div>

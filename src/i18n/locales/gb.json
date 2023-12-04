@@ -587,5 +587,9 @@
     "overflow": "Tabs Overflow",
     "hidden": "Tabs with Hidden slider",
     "grow": "Tabs Grow"
+  },
+  "themeSwitcher": {
+    "dark": "Dark",
+    "light": "Light"
   }
 }

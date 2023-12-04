@@ -72,7 +72,7 @@
             },
             {
               name: 'settings',
-              redirectTo: '',
+              redirectTo: 'settings',
               icon: 'settings',
             },
             // {
