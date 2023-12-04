@@ -1,9 +1,7 @@
 <template>
   <va-card-content class="grid grid-cols-12">
-    <div class="col-span-3 flex items-center">Activated</div>
-    <div class="col-span-9">
-      <va-switch v-model="vpnActive" size="small" @click="toggleVpn(vpn.id)" />
-    </div>
+    <div class="col-span-6 flex items-center">Activated</div>
+    <va-checkbox v-model="vpnActive" size="small" @click="toggleVpn(vpn.id)" />
   </va-card-content>
 </template>
 
