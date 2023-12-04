@@ -503,7 +503,10 @@
   "user": {
     "language": "Change Language",
     "logout": "Logout",
-    "profile": "My Profile"
+    "profile": "Profile",
+    "account": "Account",
+    "settings": "Settings",
+    "billing": "Billing"
   },
   "treeView": {
     "basic": "Basic",

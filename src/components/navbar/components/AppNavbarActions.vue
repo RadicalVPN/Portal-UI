@@ -1,48 +1,20 @@
 <template>
   <div class="app-navbar-actions">
-    <color-dropdown class="app-navbar-actions__item" />
-    <notification-dropdown class="app-navbar-actions__item" />
-    <!-- <settings-dropdown class="app-navbar-actions__item" /> -->
-    <language-dropdown class="app-navbar-actions__item" />
-    <profile-dropdown class="app-navbar-actions__item app-navbar-actions__item--profile">
-      <span>{{ user.username }}</span>
-    </profile-dropdown>
+    <NotificationDropdown class="app-navbar-actions__item" />
+    <ProfileDropdown class="app-navbar-actions__item app-navbar-actions__item--profile mr-0" />
   </div>
 </template>
 
-<script setup lang="ts">
-  import LanguageDropdown from './dropdowns/LanguageDropdown.vue'
+<script lang="ts" setup>
   import ProfileDropdown from './dropdowns/ProfileDropdown.vue'
   import NotificationDropdown from './dropdowns/NotificationDropdown.vue'
-  import ColorDropdown from './dropdowns/ColorDropdown.vue'
-  import { useGlobalStore } from '../../../stores/global-store'
-  import { storeToRefs } from 'pinia'
 
-  const GlobalStore = useGlobalStore()
-  const { user } = storeToRefs(GlobalStore)
+  defineProps({
+    isMobile: { type: Boolean, default: false },
+  })
 
-  withDefaults(
-    defineProps<{
-      isTopBar?: boolean
-    }>(),
-    {
-      isTopBar: false,
-    },
-  )
-
-  defineEmits<{
-    (e: 'update:isTopBar', isTopBar: boolean): void
-  }>()
-
-  // const isTopBarProxy = computed({
-  //   get() {
-  //     return props.isTopBar
-  //   },
-  //
-  //   set(isTopBar: boolean) {
-  //     emit('update:isTopBar', isTopBar)
-  //   },
-  // })
+  import { useI18n } from 'vue-i18n'
+  const { t } = useI18n()
 </script>
 
 <style lang="scss">
@@ -57,21 +29,16 @@
 
     &__item {
       padding: 0;
-      margin-left: 1.25rem;
-      margin-right: 1.25rem;
+      margin-left: 0.25rem;
+      margin-right: 0.25rem;
 
       svg {
-        height: 24px;
-      }
-
-      &:last-of-type {
-        margin-right: 0;
+        height: 20px;
       }
 
       &--profile {
         display: flex;
         justify-content: center;
-        margin: auto 0 auto 1.25rem;
       }
 
       .va-dropdown-content {
@@ -79,20 +46,17 @@
       }
 
       @media screen and (max-width: 640px) {
+        margin-left: 0;
         margin-right: 0;
 
         &:first-of-type {
           margin-left: 0;
         }
-
-        &--profile {
-          position: absolute;
-          right: 0.75rem;
-          top: 1.25rem;
-          height: fit-content;
-          margin: auto;
-        }
       }
+    }
+
+    .fa-github {
+      color: var(--va-on-background-primary);
     }
   }
 </style>

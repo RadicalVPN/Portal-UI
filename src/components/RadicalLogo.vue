@@ -7,8 +7,7 @@
     xmlns="http://www.w3.org/2000/svg"
     xml:space="preserve"
     viewBox="0 0 467 157"
-    height="157"
-    width="467"
+    height="32"
     version="1.1"
   >
     <defs id="defs4" />
@@ -22,7 +21,6 @@
           font-family: Ubuntu;
           white-space: pre;
           opacity: 1;
-          /* fill: #000000; */
           fill-rule: nonzero;
           stroke: none;
           stroke-width: 1;
