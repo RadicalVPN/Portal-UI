@@ -8,12 +8,12 @@
 <script lang="ts" setup>
   import ProfileDropdown from './dropdowns/ProfileDropdown.vue'
   import NotificationDropdown from './dropdowns/NotificationDropdown.vue'
+  import { useI18n } from 'vue-i18n'
 
   defineProps({
     isMobile: { type: Boolean, default: false },
   })
 
-  import { useI18n } from 'vue-i18n'
   const { t } = useI18n()
 </script>
 
