@@ -1,10 +1,24 @@
 <template>
-  <profile_my />
-
-  <profile_totp />
+  <h1 class="page-title">Profile</h1>
+  <div class="flex flex-col p-4 space-y-10 bg-backgroundSecondary rounded-lg">
+    <div class="flex space-x-5">
+      <ProfileHeader />
+    </div>
+    <div class="space-y-4 md:space-y-6">
+      <Settings @openNameModal="isEditNameModalOpen = true" @openResetPasswordModal="isResetPasswordModalOpen = true" />
+    </div>
+  </div>
+  <EditNameModal v-if="isEditNameModalOpen" @cancel="isEditNameModalOpen = false" />
+  <ResetPasswordModal v-if="isResetPasswordModalOpen" @cancel="isResetPasswordModalOpen = false" />
 </template>
+<script lang="ts" setup>
+  import { ref } from 'vue'
 
-<script setup lang="ts">
-  import profile_totp from './ProfileTOTP.vue'
-  import profile_my from './ProfileMyProfile.vue'
+  import ProfileHeader from './header/ProfileHeader.vue'
+  import Settings from './settings/Settings.vue'
+  import EditNameModal from './modals/EditNameModal.vue'
+  import ResetPasswordModal from './modals/ResetPasswordModal.vue'
+
+  const isEditNameModalOpen = ref(false)
+  const isResetPasswordModalOpen = ref(false)
 </script>

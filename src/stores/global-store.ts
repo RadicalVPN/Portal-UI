@@ -29,6 +29,7 @@ export const useGlobalStore = defineStore('global', {
         username: 'N/A',
         id: 0,
         totp: false,
+        emailSha256: '',
       },
       lastVpnTrafficHash: {} as LastVpnTrafficHash,
       vpns: [] as any[],

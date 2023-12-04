@@ -5,7 +5,11 @@
         <VaButton preset="secondary" color="textPrimary">
           <span class="profile-dropdown__anchor min-w-max">
             <slot />
-            <img src="https://picsum.photos/123" alt="" class="h-8 w-8 rounded-full" />
+            <img
+              :src="`https://gravatar.com/avatar/${store.user.emailSha256}?d=retro`"
+              alt=""
+              class="h-8 w-8 rounded-full"
+            />
           </span>
         </VaButton>
       </template>
@@ -36,8 +40,10 @@
 <script lang="ts" setup>
   import { ref } from 'vue'
   import { useI18n } from 'vue-i18n'
+  import { useGlobalStore } from '../../../../stores/global-store'
 
   const { t } = useI18n()
+  const store = useGlobalStore()
 
   type ProfileOptions = {
     name: string

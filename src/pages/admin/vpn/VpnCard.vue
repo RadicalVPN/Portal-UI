@@ -63,6 +63,10 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import 'flag-icons/css/flag-icons.css';
+
+  .va-modal__inner {
+    min-width: 326px;
+  }
 </style>

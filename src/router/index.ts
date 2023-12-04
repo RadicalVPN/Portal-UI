@@ -3,6 +3,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import AuthLayout from '../layouts/AuthLayout.vue'
 import AppLayout from '../layouts/AppLayout.vue'
 import { useGlobalStore } from '../stores/global-store'
+import RouteViewComponent from '../layouts/RouterBypass.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -27,9 +28,15 @@ const routes: Array<RouteRecordRaw> = [
     },
     children: [
       {
-        name: 'profile',
-        path: 'profile',
-        component: () => import('../pages/admin/profile/Profile.vue'),
+        component: RouteViewComponent,
+        path: '',
+        children: [
+          {
+            name: 'profile',
+            path: 'profile',
+            component: () => import('../pages/admin/profile/Profile.vue'),
+          },
+        ],
       },
       {
         name: 'dashboard',
