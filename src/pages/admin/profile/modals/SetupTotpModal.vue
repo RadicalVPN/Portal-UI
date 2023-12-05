@@ -1,12 +1,14 @@
 <template>
-  <VaModal :mobile-fullscreen="false" hide-default-actions model-value blur @update:model-value="emits('cancel')">
-    <VaStepper
-      v-model="step"
-      :steps="steps"
-      :navigation-disabled="true"
-      :controls-hidden="true"
-      :finish-button-hidden="false"
-    >
+  <VaModal
+    :mobile-fullscreen="false"
+    hide-default-actions
+    model-value
+    blur
+    close-button
+    no-dismiss
+    @update:model-value="emits('cancel')"
+  >
+    <VaStepper v-model="step" :steps="steps" navigation-disabled controls-hidden :finish-button-hidden="false">
       <template #step-content-0>
         <va-input
           v-model="currentPassword"
@@ -21,7 +23,7 @@
       </template>
       <template #step-content-1>
         <div class="flex flex-auto items-center justify-center h-full">
-          <img class="mb-4 object-none object-top" :src="imageUrl" />
+          <img alt="TOTP QrCode" class="mb-4 object-none object-top" :src="imageUrl" />
 
           <p class="leading-6 mb-4">
             Scan the code with an app like Google Authenticator or Authy.<br />Once you have done that, enter the 6
