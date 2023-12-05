@@ -36,7 +36,7 @@
         {{ twoFA.content }}
       </div>
     </div>
-    <VaButton :style="buttonStyles" class="w-fit h-fit" :color="twoFA.color" @click="emits('openTotpModal')">
+    <VaButton :style="buttonStyles" class="w-fit h-fit" :color="twoFA.color" @click="twoFA.open">
       {{ twoFA.button }}
     </VaButton>
   </div>
@@ -55,6 +55,7 @@
         button: 'Disable 2FA',
         content:
           'Two-Factor Authentication (2FA) is now enabled for your account, adding an extra layer of security to your sign-ins.',
+        open: () => emits('openDisableTotpModal'),
       }
     } else {
       return {
@@ -62,9 +63,10 @@
         button: 'Set Up 2FA',
         content:
           'Add an extra layer of security to your account. To sign in, you’ll need to provide a code along with your username and password.',
+        open: () => emits('openTotpModal'),
       }
     }
   })
 
-  const emits = defineEmits(['openNameModal', 'openResetPasswordModal', 'openTotpModal'])
+  const emits = defineEmits(['openNameModal', 'openResetPasswordModal', 'openTotpModal', 'openDisableTotpModal'])
 </script>
