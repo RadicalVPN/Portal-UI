@@ -51,7 +51,7 @@
       })
 
       if (res.status !== 200) {
-        if (res.headers.get('Content-Type') === 'application/json; charset=utf-8') {
+        if (res.headers.get('Content-Type')?.includes('application/json')) {
           const data = await res.json()
           data.errors.forEach((error: any) => {
             const property = error.instancePath.split('/')[1]
