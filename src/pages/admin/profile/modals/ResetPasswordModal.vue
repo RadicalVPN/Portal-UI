@@ -1,5 +1,5 @@
 <template>
-  <VaModal :mobile-fullscreen="false" hide-default-actions model-value @update:modelValue="emits('cancel')">
+  <VaModal :mobile-fullscreen="false" hide-default-actions model-value @update:model-value="emits('cancel')">
     <VaForm ref="form" class="space-y-6" @submit.prevent="submit">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <VaInput

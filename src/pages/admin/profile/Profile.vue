@@ -5,11 +5,16 @@
       <ProfileHeader />
     </div>
     <div class="space-y-4 md:space-y-6">
-      <Settings @openNameModal="isEditNameModalOpen = true" @openResetPasswordModal="isResetPasswordModalOpen = true" />
+      <Settings
+        @openNameModal="isEditNameModalOpen = true"
+        @openResetPasswordModal="isResetPasswordModalOpen = true"
+        @openTotpModal="isTotpSetupModalOpen = true"
+      />
     </div>
   </div>
   <EditNameModal v-if="isEditNameModalOpen" @cancel="isEditNameModalOpen = false" />
   <ResetPasswordModal v-if="isResetPasswordModalOpen" @cancel="isResetPasswordModalOpen = false" />
+  <SetupTotpModal v-if="isTotpSetupModalOpen" @cancel="isTotpSetupModalOpen = false" />
 </template>
 <script lang="ts" setup>
   import { ref } from 'vue'
@@ -18,7 +23,9 @@
   import Settings from './settings/Settings.vue'
   import EditNameModal from './modals/EditNameModal.vue'
   import ResetPasswordModal from './modals/ResetPasswordModal.vue'
+  import SetupTotpModal from './modals/SetupTotpModal.vue'
 
   const isEditNameModalOpen = ref(false)
   const isResetPasswordModalOpen = ref(false)
+  const isTotpSetupModalOpen = ref(false)
 </script>

@@ -36,22 +36,17 @@
         {{ twoFA.content }}
       </div>
     </div>
-    <VaButton :style="buttonStyles" class="w-fit h-fit" :color="twoFA.color" @click="toggle2FA">
+    <VaButton :style="buttonStyles" class="w-fit h-fit" :color="twoFA.color" @click="emits('openTotpModal')">
       {{ twoFA.button }}
     </VaButton>
   </div>
 </template>
 <script lang="ts" setup>
   import { computed } from 'vue'
-  import { useToast } from 'vuestic-ui/web-components'
   import { buttonStyles } from '../styles'
   import { useGlobalStore } from '../../../../stores/global-store'
 
   const store = useGlobalStore()
-
-  const { init } = useToast()
-
-  const toastMessage = computed(() => (store.user.totp ? '2FA successfully enabled' : '2FA successfully disabled'))
 
   const twoFA = computed(() => {
     if (store.user.totp) {
@@ -71,10 +66,5 @@
     }
   })
 
-  const toggle2FA = () => {
-    //store.toggle2FA()
-    init({ message: toastMessage.value, color: 'success' })
-  }
-
-  const emits = defineEmits(['openNameModal', 'openResetPasswordModal'])
+  const emits = defineEmits(['openNameModal', 'openResetPasswordModal', 'openTotpModal'])
 </script>
