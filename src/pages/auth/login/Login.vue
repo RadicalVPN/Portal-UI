@@ -40,7 +40,7 @@
     </div>
 
     <div class="flex justify-center mt-4">
-      <cloudflare-turnstile v-model="turnstile" />
+      <cloudflare-turnstile ref="turnstileRef" v-model="turnstile" />
     </div>
 
     <div class="flex justify-center mt-4">
@@ -77,6 +77,7 @@
   const authenticating = ref(false)
 
   const turnstile = ref('')
+  const turnstileRef = ref()
 
   async function checkAuth(): Promise<any> {
     try {
@@ -97,6 +98,7 @@
           ...(totp && {
             totpToken: totp,
           }),
+          turnstileChallenge: turnstile.value,
           rememberMe,
         }),
         headers: {
@@ -125,8 +127,6 @@
   })
 
   async function onsubmit() {
-    console.log(turnstile.value)
-
     emailErrors.value = email.value ? [] : ['Email is required']
     passwordErrors.value = password.value ? [] : ['Password is required']
 
@@ -137,6 +137,9 @@
     authenticating.value = false
 
     if (!authenticated.success) {
+      //reload turnstile
+      turnstileRef.value?.reset()
+
       if (authenticated.statusCode === 400) {
         const data = JSON.parse(authenticated.data as string)
 
@@ -176,6 +179,15 @@
       if (authenticated.statusCode === 401 && authenticated.data == 'invalid totp token') {
         showTotp.value = true
         totpErrors.value = ['Invalid TOTP Token']
+        return
+      }
+
+      if (authenticated.statusCode === 401 && authenticated.data == 'turnstile challenge failed') {
+        const error = ['Captcha (Turnstile) challenge failed']
+
+        emailErrors.value = error
+        passwordErrors.value = error
+
         return
       }
     }

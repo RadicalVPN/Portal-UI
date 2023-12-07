@@ -70,7 +70,7 @@
     </div>
 
     <div class="flex justify-center mt-4">
-      <cloudflare-turnstile v-model="turnstile" />
+      <cloudflare-turnstile ref="turnstileRef" v-model="turnstile" />
     </div>
 
     <div class="flex justify-center mt-4">
@@ -102,6 +102,7 @@
   const agreedToTermsErrors = ref<string[]>([])
   const usernameErrors = ref<string[]>([])
   const turnstile = ref('')
+  const turnstileRef = ref()
 
   const registering = ref(false)
 
@@ -111,19 +112,23 @@
 
   async function register(email: string, username: string, password: string) {
     try {
-      return await (
-        await fetch('/api/1.0/auth/register', {
-          method: 'POST',
-          body: JSON.stringify({
-            email,
-            username,
-            password,
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-      ).json()
+      const res = await await fetch('/api/1.0/auth/register', {
+        method: 'POST',
+        body: JSON.stringify({
+          email,
+          username,
+          password,
+          turnstileChallenge: turnstile.value,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      return {
+        status: res.status,
+        data: await res.text(),
+      }
     } catch (e) {
       console.error(e)
       return null
@@ -146,30 +151,47 @@
     const auth = await register(email.value, username.value, password.value)
     registering.value = false
 
-    //check if auth is a UserCreationError response
-    if (auth?.name && auth?.message) {
-      emailErrors.value = [auth.message]
-      usernameErrors.value = [auth.message]
-      return
-    }
+    console.log(auth)
 
-    if (auth?.valid === false) {
-      auth.errors.forEach((error: any) => {
-        const property = error.instancePath.split('/')[1]
-        switch (property) {
-          case 'email':
-            emailErrors.value = [error.message]
-            break
-          case 'username':
-            usernameErrors.value = [error.message]
-            break
-          case 'password':
-            passwordErrors.value = [error.message]
-            break
-        }
-      })
+    if (auth?.status === 400) {
+      const authData = JSON.parse(auth.data)
 
-      return
+      console.log(authData)
+
+      //check if auth is a UserCreationError response
+      if (authData?.name && authData?.message) {
+        emailErrors.value = [authData.message]
+        usernameErrors.value = [authData.message]
+        return
+      }
+
+      if (authData?.valid === false) {
+        authData.errors.forEach((error: any) => {
+          const property = error.instancePath.split('/')[1]
+          switch (property) {
+            case 'email':
+              emailErrors.value = [error.message]
+              break
+            case 'username':
+              usernameErrors.value = [error.message]
+              break
+            case 'password':
+              passwordErrors.value = [error.message]
+              break
+          }
+        })
+
+        return
+      }
+    } else if (auth?.status === 401) {
+      if (auth.data == 'turnstile challenge failed') {
+        const error = ['Captcha (Turnstile) challenge failed']
+
+        emailErrors.value = error
+        passwordErrors.value = error
+
+        return
+      }
     }
 
     init({
