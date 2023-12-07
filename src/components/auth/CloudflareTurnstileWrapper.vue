@@ -1,5 +1,6 @@
 <template>
   <vue-turnstile v-if="siteKey" v-model="tokenModel" :site-key="siteKey" />
+  <va-skeleton v-else class="w-2/3" />
 </template>
 
 <script lang="ts" setup>
