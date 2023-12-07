@@ -151,12 +151,8 @@
     const auth = await register(email.value, username.value, password.value)
     registering.value = false
 
-    console.log(auth)
-
     if (auth?.status === 400) {
       const authData = JSON.parse(auth.data)
-
-      console.log(authData)
 
       //check if auth is a UserCreationError response
       if (authData?.name && authData?.message) {
