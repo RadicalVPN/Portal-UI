@@ -1,5 +1,5 @@
 <template>
-  <va-form tag="form" @submit.prevent="onsubmit">
+  <va-form tag="form" @submit.prevent="">
     <va-input
       v-model="email"
       class="mb-4"
@@ -40,6 +40,10 @@
     </div>
 
     <div class="flex justify-center mt-4">
+      <cloudflare-turnstile v-model="turnstile" />
+    </div>
+
+    <div class="flex justify-center mt-4">
       <va-button type="submit" class="my-0" :loading="authenticating" @click="onsubmit">{{
         t('auth.login')
       }}</va-button>
@@ -51,6 +55,8 @@
   import { computed, onMounted, ref } from 'vue'
   import { useRouter } from 'vue-router'
   import { useI18n } from 'vue-i18n'
+  import CloudflareTurnstile from '../../../components/auth/CloudflareTurnstileWrapper.vue'
+
   const { t } = useI18n()
 
   const email = ref('')
@@ -69,6 +75,8 @@
   const formReady = computed(() => !emailErrors.value.length && !passwordErrors.value.length)
 
   const authenticating = ref(false)
+
+  const turnstile = ref('')
 
   async function checkAuth(): Promise<any> {
     try {
@@ -117,6 +125,8 @@
   })
 
   async function onsubmit() {
+    console.log(turnstile.value)
+
     emailErrors.value = email.value ? [] : ['Email is required']
     passwordErrors.value = password.value ? [] : ['Password is required']
 
