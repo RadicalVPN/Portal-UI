@@ -70,6 +70,10 @@
     </div>
 
     <div class="flex justify-center mt-4">
+      <cloudflare-turnstile v-model="turnstile" />
+    </div>
+
+    <div class="flex justify-center mt-4">
       <va-button type="submit" :loading="registering" class="my-0" @click="onsubmit">{{ t('auth.sign_up') }}</va-button>
     </div>
   </va-form>
@@ -80,8 +84,11 @@
   import { useRouter } from 'vue-router'
   import { useI18n } from 'vue-i18n'
   import { useToast } from 'vuestic-ui'
+  import CloudflareTurnstile from '../../../components/auth/CloudflareTurnstileWrapper.vue'
+
   const { t } = useI18n()
   const { init } = useToast()
+  const router = useRouter()
 
   const email = ref('')
   const password = ref('')
@@ -94,7 +101,7 @@
   const isPasswordConfirmVisible = ref<boolean>(false)
   const agreedToTermsErrors = ref<string[]>([])
   const usernameErrors = ref<string[]>([])
-  const router = useRouter()
+  const turnstile = ref('')
 
   const registering = ref(false)
 
