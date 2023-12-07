@@ -4,26 +4,52 @@
       <h1 style="color: var(--va-text-primary)" class="va-h4 mb-4">{{ key }}</h1>
 
       <div class="grid gap-4">
-        <va-card
-          v-for="(_item, _index) in item"
-          :key="_index"
-          class="cursor-pointer"
-          @click="downloadClient(_item.url)"
-        >
-          <va-card-content class="flex items-center">
-            <component :is="_item.icon" class="mr-2" />
+        <div v-for="(_item, _index) in item" :key="_index">
+          <VaBadge
+            v-if="_item.official"
+            class="block w-full"
+            placement="top-left"
+            text="Official"
+            overlap
+            :offset="[32, 0]"
+            color="success"
+            style="--va-badge-text-wrapper-border-radius: 40px"
+          >
+            <va-card class="cursor-pointer" @click="downloadClient(_item.url)">
+              <va-card-content class="flex items-center">
+                <component :is="_item.icon" class="mr-2" />
 
-            <div class="flex-1">
-              <div class="text-lg font-bold">{{ _item.name }}</div>
-              <div class="text-sm">{{ _item.description }}</div>
-            </div>
+                <div class="flex-1">
+                  <div class="text-lg font-bold">{{ _item.name }}</div>
+                  <div class="text-sm">{{ _item.description }}</div>
+                </div>
 
-            <div class="flex">
-              <div class="text-sm mr-5">Version {{ _item.version }}</div>
-              <va-icon name="fa-download" />
-            </div>
-          </va-card-content>
-        </va-card>
+                <div class="flex">
+                  <div class="text-sm mr-5">Version {{ _item.version }}</div>
+                  <va-icon name="fa-download" />
+                </div>
+              </va-card-content>
+            </va-card>
+          </VaBadge>
+
+          <!-- TODO: REMOVE DUPLICATED CODE HERE! -->
+
+          <va-card v-else class="cursor-pointer" @click="downloadClient(_item.url)">
+            <va-card-content class="flex items-center">
+              <component :is="_item.icon" class="mr-2" />
+
+              <div class="flex-1">
+                <div class="text-lg font-bold">{{ _item.name }}</div>
+                <div class="text-sm">{{ _item.description }}</div>
+              </div>
+
+              <div class="flex">
+                <div class="text-sm mr-5">Version {{ _item.version }}</div>
+                <va-icon name="fa-download" />
+              </div>
+            </va-card-content>
+          </va-card>
+        </div>
       </div>
 
       <div class="mb-6"></div>
@@ -46,6 +72,7 @@
       description: string
       version: string
       url: string
+      official?: boolean
     }[]
   }
 
@@ -57,6 +84,7 @@
         description: 'Supports macOS 12.0+',
         version: '1.0.16',
         url: 'https://itunes.apple.com/us/app/wireguard/id1451685025?ls=1&mt=12',
+        official: true,
       },
       {
         name: 'Windows',
@@ -64,6 +92,7 @@
         description: 'Supports Windows 7, 8.1, 10, 11',
         version: '0.5.3',
         url: 'https://download.wireguard.com/windows-client/wireguard-installer.exe',
+        official: true,
       },
       {
         name: 'Linux',
