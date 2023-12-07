@@ -2564,7 +2564,12 @@ vue-tsc@^0.35.0:
   dependencies:
     "@volar/vue-typescript" "0.35.2"
 
-"vue@^2.6.14 || ^3.2.0", vue@^3.0.0, "vue@^3.0.0-0 || ^2.6.0", vue@^3.0.4, vue@^3.2.0, vue@^3.2.25, vue@^3.3.4, vue@3.3.4:
+vue-turnstile@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.npmjs.org/vue-turnstile/-/vue-turnstile-1.0.5.tgz"
+  integrity sha512-ayXZGL4aWeBOERPXS2Ufwkni1tJKNSUL3y+9bwDChyQHTJaqXBqWVnrgb+sL5ilnYnphnoBVqvGTmFjGzj6ZjQ==
+
+"vue@^2.6.14 || ^3.2.0", vue@^3.0.0, "vue@^3.0.0-0 || ^2.6.0", vue@^3.0.4, vue@^3.2.0, vue@^3.2.25, vue@^3.2.45, vue@^3.3.4, vue@3.3.4:
   version "3.3.4"
   resolved "https://registry.npmjs.org/vue/-/vue-3.3.4.tgz"
   integrity sha512-VTyEYn3yvIeY1Py0WaYGZsXnz3y5UnGi62GjVEqvEGPl6nxbOrCXbVOTQWBEJUqAyTUk2uJ5JLVnYJ6ZzGbrSw==
