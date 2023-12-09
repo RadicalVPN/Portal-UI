@@ -79,10 +79,13 @@
   const turnstile = ref('')
   const turnstileRef = ref()
 
-  async function checkAuth(): Promise<any> {
+  async function checkAuth() {
     try {
       const res = await fetch('/api/1.0/auth')
-      return res.status === 200
+      return {
+        success: res.status === 200,
+        data: await res.json(),
+      }
     } catch {
       return null
     }
@@ -121,7 +124,9 @@
   }
 
   onMounted(async () => {
-    if (await checkAuth()) {
+    const authStats = await checkAuth()
+
+    if (authStats?.success) {
       router.push({ name: 'dashboard' })
     }
   })
@@ -188,6 +193,11 @@
         emailErrors.value = error
         passwordErrors.value = error
 
+        return
+      }
+
+      if (authenticated.statusCode === 401 && authenticated.data == 'email not verified') {
+        router.push({ name: 'verify-email' })
         return
       }
     }

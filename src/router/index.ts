@@ -90,6 +90,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('../pages/auth/signup/Signup.vue'),
       },
       {
+        name: 'verify-email',
+        path: 'verify-email',
+        component: () => import('../pages/auth/login/VerifyEmail.vue'),
+      },
+      {
         name: 'recover-password',
         path: 'recover-password',
         component: () => import('../pages/auth/recover-password/RecoverPassword.vue'),
