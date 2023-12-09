@@ -5,6 +5,8 @@
         <VaInput
           v-model="oldPassowrd"
           :rules="oldPasswordRules"
+          :error="!!oldPasswordErrors.length"
+          :error-messages="oldPasswordErrors"
           label="Old password"
           placeholder="Old password"
           required-mark
@@ -14,6 +16,8 @@
         <VaInput
           v-model="newPassword"
           :rules="newPasswordRules"
+          :error="!!newPasswordErrors.length"
+          :error-messages="newPasswordErrors"
           label="New password"
           placeholder="New password"
           required-mark
@@ -29,18 +33,8 @@
         />
       </div>
       <div class="flex flex-col space-y-2">
-        <div class="flex space-x-2 items-center">
-          <div>
-            <VaIcon :name="newPassword?.length! >= 8 ? 'mso-check' : 'mso-close'" color="secondary" size="20px" />
-          </div>
-          <p>Must be at least 8 characters long</p>
-        </div>
-        <div class="flex space-x-2 items-center">
-          <div>
-            <VaIcon :name="new Set(newPassword).size >= 6 ? 'mso-check' : 'mso-close'" color="secondary" size="20px" />
-          </div>
-          <p>Must contain at least 6 unique characters</p>
-        </div>
+        <p>After changing your password, you will be logged out of all devices.</p>
+        <p>Your current session (current device) will not be deleted.</p>
       </div>
       <div class="flex flex-col-reverse md:justify-end md:flex-row md:space-x-4">
         <VaButton :style="buttonStyles" preset="plain" @click="emits('cancel')"> Cancel</VaButton>
@@ -52,11 +46,15 @@
 <script lang="ts" setup>
   import { ref } from 'vue'
   import { useForm, useToast } from 'vuestic-ui'
-
   import { buttonStyles } from '../styles'
+  import axios from 'axios'
 
   const oldPassowrd = ref<string>()
   const newPassword = ref<string>()
+
+  const oldPasswordErrors = ref<string[]>([])
+  const newPasswordErrors = ref<string[]>([])
+
   const repeatNewPassword = ref<string>()
 
   const { validate } = useForm('form')
@@ -64,26 +62,56 @@
 
   const emits = defineEmits(['cancel'])
 
-  const submit = () => {
+  const submit = async () => {
+    oldPasswordErrors.value = []
+    newPasswordErrors.value = []
+
     if (validate()) {
-      init({ message: "You've successfully changed your password", color: 'success' })
-      emits('cancel')
+      doPasswordReset()
     }
   }
 
   const oldPasswordRules = [(v: string) => !!v || 'Old password field is required']
-
-  const newPasswordRules = [
-    (v: string) => !!v || 'New password field is required',
-    (v: string) => v?.length >= 8 || 'Must be at least 8 characters long',
-    (v: string) => new Set(v).size >= 6 || 'Must contain at least 6 unique characters',
-    (v: string) => v !== oldPassowrd.value || 'New password cannot be the same',
-  ]
-
+  const newPasswordRules = [(v: string) => !!v || 'New password field is required']
   const repeatNewPasswordRules = [
     (v: string) => !!v || 'Repeat new password field is required',
     (v: string) => v === newPassword.value || 'Confirm password does not match new password',
   ]
+
+  async function doPasswordReset() {
+    const res = await axios.put(
+      '/api/1.0/user/password',
+      {
+        oldPassword: oldPassowrd.value,
+        newPassword: newPassword.value,
+      },
+      {
+        validateStatus: () => true,
+      },
+    )
+
+    if (res.status === 200) {
+      init({ message: "You've successfully changed your password", color: 'success' })
+      emits('cancel')
+      return
+    }
+
+    const data = res.data as any
+    if (typeof data === 'string') {
+      if (data === 'invalid password') {
+        oldPasswordErrors.value.push('Invalid password')
+      }
+    } else {
+      data.errors.forEach((error: any) => {
+        const property = error.instancePath.split('/')[1]
+        switch (property) {
+          case 'newPassword':
+            newPasswordErrors.value = [error.message]
+            break
+        }
+      })
+    }
+  }
 </script>
 
 <style lang="scss">
