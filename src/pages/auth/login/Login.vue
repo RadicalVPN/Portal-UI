@@ -53,11 +53,12 @@
 
 <script setup lang="ts">
   import { computed, onMounted, ref } from 'vue'
-  import { useRouter } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
   import { useI18n } from 'vue-i18n'
   import CloudflareTurnstile from '../../../components/auth/CloudflareTurnstileWrapper.vue'
 
   const { t } = useI18n()
+  const route = useRoute()
 
   const email = ref('')
   const emailErrors = ref<string[]>([])
@@ -78,6 +79,8 @@
 
   const turnstile = ref('')
   const turnstileRef = ref()
+
+  const oAuthClient = ref(route.query.client_id)
 
   async function checkAuth() {
     try {
@@ -127,7 +130,7 @@
     const authStats = await checkAuth()
 
     if (authStats?.success) {
-      router.push({ name: 'dashboard' })
+      redirect()
     }
   })
 
@@ -204,6 +207,14 @@
 
     await checkAuth()
 
-    router.push({ name: 'dashboard' })
+    redirect()
+  }
+
+  function redirect() {
+    if (oAuthClient.value) {
+      router.push({ name: 'oauth', query: route.query })
+    } else {
+      router.push({ name: 'dashboard' })
+    }
   }
 </script>

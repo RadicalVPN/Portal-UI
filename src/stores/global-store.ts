@@ -43,6 +43,9 @@ export const useGlobalStore = defineStore('global', {
     async refreshServerList() {
       this.server = await (await fetch('/api/1.0/server')).json()
     },
+    async fetchUserInfo() {
+      this.user = await (await fetch('/api/1.0/auth')).json()
+    },
     changeUserName(userName: string) {
       this.user.username = userName
     },

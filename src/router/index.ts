@@ -18,7 +18,7 @@ const routes: Array<RouteRecordRaw> = [
       try {
         const store = useGlobalStore()
 
-        store.user = await (await fetch('/api/1.0/auth')).json()
+        await store.fetchUserInfo()
         store.server = await (await fetch('/api/1.0/server')).json()
 
         next()
@@ -73,6 +73,13 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/auth',
     component: AuthLayout,
+    beforeEnter: async (to, from, next) => {
+      const store = useGlobalStore()
+
+      await store.fetchUserInfo()
+
+      next()
+    },
     children: [
       {
         name: 'login',
@@ -98,6 +105,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'recover-password',
         path: 'recover-password',
         component: () => import('../pages/auth/recover-password/RecoverPassword.vue'),
+      },
+      {
+        name: 'oauth',
+        path: 'oauth',
+        component: () => import('../pages/auth/oauth/OAuth2.vue'),
       },
       {
         path: '',
