@@ -43,7 +43,7 @@
   const store = useGlobalStore()
 
   const clientId = route.query.client_id
-  const clientName = ref('')
+  const clientName = ref('N/A')
 
   const isInvalidClient = ref(false)
 
@@ -57,9 +57,5 @@
     }
 
     clientName.value = clientData.data.clientName
-
-    console.log(clientData.data)
-
-    console.log(clientId)
   })
 </script>
