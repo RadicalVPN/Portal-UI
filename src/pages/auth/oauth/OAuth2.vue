@@ -17,15 +17,15 @@
       <div class="flex flex-col items-center justify-center">
         <a class="font-bold text-xl">Authorize {{ clientName }}</a>
 
-        <a class="mt-6"
+        <a class="mt-4"
           ><b>{{ clientName }}</b> wants to access your <b>{{ store.user.username }}</b> account</a
         >
 
-        <p class="mt-4">Would you like to authorize this application to access your account?</p>
+        <p class="mt-3">Would you like to authorize this application to access your account?</p>
 
-        <div class="flex items-center justify-center mt-4">
+        <div class="flex items-center justify-center mt-7">
           <va-button color="secondary" @click="router.push({ name: 'dashboard' })">{{ 'Cancel' }}</va-button>
-          <va-button type="submit" color="success" class="ml-4">{{ 'Authorize ' + clientName }}</va-button>
+          <va-button type="submit" class="ml-6">{{ 'Authorize ' + clientName }}</va-button>
         </div>
       </div>
     </va-form>
