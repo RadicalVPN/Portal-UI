@@ -37,7 +37,6 @@
 
 <style lang="scss" scoped>
   .va-navbar {
-    box-shadow: var(--va-box-shadow);
     z-index: 2;
 
     @media screen and (max-width: 950px) {

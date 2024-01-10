@@ -2,7 +2,7 @@
   <div class="flex items-center justify-between">
     <p>Language</p>
     <div class="w-40">
-      <VaSelect v-model="model" class="ellipsis" :options="options" />
+      <VaSelect v-model="model" :options="options" />
     </div>
   </div>
 </template>

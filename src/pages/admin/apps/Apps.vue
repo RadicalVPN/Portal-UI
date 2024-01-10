@@ -83,7 +83,7 @@
         icon: MacOs,
         description: 'Supports macOS 12.0+',
         version: '1.0.16',
-        url: 'https://itunes.apple.com/us/app/wireguard/id1451685025?ls=1&mt=12',
+        url: 'https://github.com/RadicalVPN/Desktop-Client/releases/download/latest/radicalvpn-darwin-ARM64.dmg',
         official: true,
       },
       {
@@ -91,7 +91,7 @@
         icon: Windows,
         description: 'Supports Windows 7, 8.1, 10, 11',
         version: '0.5.3',
-        url: 'https://download.wireguard.com/windows-client/wireguard-installer.exe',
+        url: 'https://github.com/RadicalVPN/Desktop-Client/releases/download/latest/radicalvpn-win-X64.exe',
         official: true,
       },
       {
