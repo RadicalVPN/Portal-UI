@@ -6,7 +6,9 @@
       </div>
       <div class="col-span-4 flex justify-between items-center pr-4">
         <div class="ml-auto">
-          <va-button icon="fa-refresh" @click="store.refreshServerList()" />
+          <va-button @click="store.refreshServerList()">
+            <va-icon name="fa-refresh" size="xs"></va-icon>
+          </va-button>
         </div>
       </div>
     </va-card-content>

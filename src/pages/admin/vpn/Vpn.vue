@@ -7,7 +7,9 @@
       <div class="col-span-4 flex justify-between items-center pr-4">
         <va-input v-model="vpnSearch" type="text" placeholder="Search..." clearable />
         <div class="ml-4">
-          <va-button icon="fa-plus" @click="router.push({ name: 'vpn-add' })" />
+          <va-button @click="router.push({ name: 'vpn-add' })">
+            <va-icon name="fa-plus" size="xs"></va-icon>
+          </va-button>
         </div>
       </div>
     </va-card-content>
