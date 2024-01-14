@@ -13,7 +13,7 @@
     </p>
 
     <VaAlert v-if="!passkeysSupported" color="warning">
-      Your current browser does not seem to support Passkeys,
+      Your current browser does not seem to support Passkeys.
     </VaAlert>
 
     <VaAlert v-if="!!registrationError" color="danger" class="mb-6"> {{ registrationError }}. </VaAlert>
@@ -41,6 +41,7 @@
   import { useGlobalStore } from '../../../../stores/global-store'
   import { client } from '@passwordless-id/webauthn'
   import { RegistrationEncoded } from '@passwordless-id/webauthn/dist/esm/types'
+  import axios from 'axios'
 
   const store = useGlobalStore()
   const emits = defineEmits(['cancel'])
@@ -66,11 +67,8 @@
     registrationError.value = ''
     isRegistrationRunning.value = true
 
-    //TOOD: GENERATE THIS ON THE SERVEr
-    const randomNum = Math.floor(Math.random() * 10)
-    const challenge = `a7c61ef9-dc23-4806-b486-2428938a54${randomNum}e`
+    const challenge = (await axios.get('/api/1.0/user/webauthn/challenge')).data.challenge
 
-    console.log('Webauthn: Starting registration')
     let registration: RegistrationEncoded
     try {
       registration = await client.register(store.user.email, challenge, {
@@ -90,11 +88,9 @@
       isRegistrationRunning.value = false
     }
 
-    console.log('WebAuthn: Registration complete')
+    const result = (await axios.put('/api/1.0/user/webauthn/verify', registration)).data
 
-    console.log(registration)
-
-    //TODO: SEND REGISTRATION TO SERVER
+    console.log('WebAuthn: Registration complete', result)
   }
 </script>
 
