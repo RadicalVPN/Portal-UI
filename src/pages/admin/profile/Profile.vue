@@ -10,6 +10,7 @@
         @openResetPasswordModal="isResetPasswordModalOpen = true"
         @openTotpModal="isTotpSetupModalOpen = true"
         @openDisableTotpModal="isTotpDisableModalOpen = true"
+        @openPasskeysModal="isPasskeyModalOpen = true"
       />
     </div>
   </div>
@@ -17,6 +18,7 @@
   <ResetPasswordModal v-if="isResetPasswordModalOpen" @cancel="isResetPasswordModalOpen = false" />
   <SetupTotpModal v-if="isTotpSetupModalOpen" @cancel="isTotpSetupModalOpen = false" />
   <DisableTotpModal v-if="isTotpDisableModalOpen" @cancel="isTotpDisableModalOpen = false" />
+  <PasskeyModal v-if="isPasskeyModalOpen" @cancel="isPasskeyModalOpen = false" />
 </template>
 <script lang="ts" setup>
   import { ref } from 'vue'
@@ -27,9 +29,11 @@
   import ResetPasswordModal from './modals/ResetPasswordModal.vue'
   import SetupTotpModal from './modals/SetupTotpModal.vue'
   import DisableTotpModal from './modals/DisableTotpModal.vue'
+  import PasskeyModal from './modals/PasskeyModal.vue'
 
   const isEditNameModalOpen = ref(false)
   const isResetPasswordModalOpen = ref(false)
   const isTotpSetupModalOpen = ref(false)
   const isTotpDisableModalOpen = ref(false)
+  const isPasskeyModalOpen = ref(false)
 </script>

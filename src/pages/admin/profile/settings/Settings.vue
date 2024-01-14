@@ -40,6 +40,15 @@
       {{ twoFA.button }}
     </VaButton>
   </div>
+  <div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 min-h-[36px] leading-5">
+    <p class="font-bold w-[200px]">Passkeys</p>
+    <div class="flex-1">
+      <div class="max-w-[748px]">Manage your passkeys that are used for passwordless login</div>
+    </div>
+    <VaButton :style="buttonStyles" class="w-fit h-fit" color="primary" @click="emits('openPasskeysModal')">
+      Manage passkeys
+    </VaButton>
+  </div>
 </template>
 <script lang="ts" setup>
   import { computed } from 'vue'
@@ -68,5 +77,11 @@
     }
   })
 
-  const emits = defineEmits(['openNameModal', 'openResetPasswordModal', 'openTotpModal', 'openDisableTotpModal'])
+  const emits = defineEmits([
+    'openNameModal',
+    'openResetPasswordModal',
+    'openTotpModal',
+    'openDisableTotpModal',
+    'openPasskeysModal',
+  ])
 </script>
