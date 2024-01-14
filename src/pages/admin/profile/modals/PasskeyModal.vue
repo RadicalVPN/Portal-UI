@@ -90,6 +90,10 @@
 
     const result = (await axios.put('/api/1.0/user/webauthn/verify', registration)).data
 
+    if (result.success === false) {
+      registrationError.value = result.error ?? 'Unknown Server Webauthn error'
+    }
+
     console.log('WebAuthn: Registration complete', result)
   }
 </script>
