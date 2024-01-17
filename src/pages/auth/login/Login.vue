@@ -44,7 +44,7 @@
     </div>
 
     <div class="flex justify-center mt-4">
-      <va-button type="submit" class="my-0" :loading="authenticating" @click="onsubmit">{{
+      <va-button type="submit" class="w-full" :loading="authenticating" @click="onsubmit">{{
         t('auth.login')
       }}</va-button>
     </div>

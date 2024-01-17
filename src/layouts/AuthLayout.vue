@@ -23,29 +23,23 @@
       </va-card>
     </div>
 
-    <div v-if="currentRoute.name === 'login'" class="flex justify-center col-span-12 p-4">
-      <va-card class="auth-layout__card">
-        <va-card-content class="flex justify-center">
-          <span class="ml-1 va-link">{{ t('auth.loginPasskey') }}</span>
-        </va-card-content>
-      </va-card>
-    </div>
+    <auth-layout-passkey />
   </div>
 </template>
 
 <script>
   import { useRouter } from 'vue-router'
   import RadicalLogo from '../components/RadicalLogo.vue'
+  import AuthLayoutPasskey from './AuthLayoutPasskey.vue'
   import { useI18n } from 'vue-i18n'
 
   export default {
     name: 'AuthLayout',
-    components: { RadicalLogo },
+    components: { RadicalLogo, AuthLayoutPasskey },
     setup() {
       const { t } = useI18n()
-      const { currentRoute } = useRouter()
 
-      return { t, currentRoute }
+      return { t }
     },
     data() {
       return {
