@@ -22,10 +22,19 @@
         </va-card-content>
       </va-card>
     </div>
+
+    <div v-if="currentRoute.name === 'login'" class="flex justify-center col-span-12 p-4">
+      <va-card class="auth-layout__card">
+        <va-card-content class="flex justify-center">
+          <span class="ml-1 va-link">{{ t('auth.loginPasskey') }}</span>
+        </va-card-content>
+      </va-card>
+    </div>
   </div>
 </template>
 
 <script>
+  import { useRouter } from 'vue-router'
   import RadicalLogo from '../components/RadicalLogo.vue'
   import { useI18n } from 'vue-i18n'
 
@@ -34,7 +43,9 @@
     components: { RadicalLogo },
     setup() {
       const { t } = useI18n()
-      return { t }
+      const { currentRoute } = useRouter()
+
+      return { t, currentRoute }
     },
     data() {
       return {
