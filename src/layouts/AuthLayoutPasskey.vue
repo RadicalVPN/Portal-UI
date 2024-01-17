@@ -62,8 +62,9 @@
 
     if (result.success === false) {
       loginError.value = 'Login failed: ' + result.message ?? 'Unknown Server Webauthn error'
+      return
     }
 
-    console.log(result)
+    router.push({ name: 'dashboard' })
   }
 </script>
