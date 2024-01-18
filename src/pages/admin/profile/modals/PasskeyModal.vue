@@ -29,7 +29,7 @@
       >
     </div>
 
-    <VaDataTable class="table-crud mt-6" :items="passkeys" :columns="columns">
+    <VaDataTable class="table-crud mt-6" :items="passkeys" :columns="columns" :loading="passKeyLoading">
       <template #cell(actions)="{}">
         <VaButton preset="plain" icon="delete" class="ml-3" />
       </template>
@@ -37,23 +37,30 @@
   </VaModal>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue'
+  import { computed, onMounted, ref } from 'vue'
   import { useGlobalStore } from '../../../../stores/global-store'
   import { client } from '@passwordless-id/webauthn'
   import { RegistrationEncoded } from '@passwordless-id/webauthn/dist/esm/types'
   import axios from 'axios'
 
+  interface IPassKey {
+    name: string
+    lastUsed: string
+  }
+
   const store = useGlobalStore()
   const emits = defineEmits(['cancel'])
   const registrationError = ref('')
   const isRegistrationRunning = ref(false)
+  const passKeyLoading = ref(false)
 
-  const passkeys = ref([
-    {
-      name: 'Yubikey',
-      lastUsed: '2021-08-01 12:00:00',
-    },
-  ])
+  const rawPasskeys = ref([])
+  const passkeys = computed<IPassKey[]>(() => {
+    return rawPasskeys.value.map((key: any) => ({
+      name: key.authenticatorName,
+      lastUsed: new Date(key.lastUsage).toLocaleString(),
+    }))
+  })
 
   const columns = [
     { key: 'name', sortable: true },
@@ -62,6 +69,15 @@
   ]
 
   const passkeysSupported = client.isAvailable()
+
+  onMounted(async () => {
+    passKeyLoading.value = true
+
+    const keys = await (await fetch('/api/1.0/passkey')).json()
+    rawPasskeys.value = keys
+
+    passKeyLoading.value = false
+  })
 
   async function register() {
     registrationError.value = ''
