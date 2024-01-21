@@ -28,7 +28,7 @@
   </va-card-content>
 
   <va-modal v-model="showVpnQrModel" title="VPN QR Code" cancel-text="Cancel" blur>
-    <img class="items-center" :src="`/api/2.0/vpn/${vpn.id}/qrcode`"
+    <img class="items-center" :src="`/api/1.0/vpn/${vpn.id}/qrcode`"
   /></va-modal>
 </template>
 
