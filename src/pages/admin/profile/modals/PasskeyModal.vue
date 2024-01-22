@@ -30,8 +30,8 @@
     </div>
 
     <VaDataTable class="table-crud mt-6" :items="passkeys" :columns="columns" :loading="passKeyLoading">
-      <template #cell(actions)="{}">
-        <VaButton preset="plain" icon="delete" class="ml-3" />
+      <template #cell(actions)="{ rowData }">
+        <VaButton preset="plain" icon="delete" class="ml-3" @click="deletePasskey(rowData)" />
       </template>
     </VaDataTable>
   </VaModal>
@@ -46,6 +46,7 @@
   interface IPassKey {
     name: string
     lastUsed: string
+    id: string
   }
 
   const store = useGlobalStore()
@@ -59,6 +60,7 @@
     return rawPasskeys.value.map((key: any) => ({
       name: key.authenticatorName,
       lastUsed: new Date(key.lastUsage).toLocaleString(),
+      id: key.id,
     }))
   })
 
@@ -71,13 +73,14 @@
   const passkeysSupported = client.isAvailable()
 
   onMounted(async () => {
-    passKeyLoading.value = true
-
-    const keys = await (await fetch('/api/1.0/passkey')).json()
-    rawPasskeys.value = keys
-
-    passKeyLoading.value = false
+    await loadPasskeys()
   })
+
+  async function loadPasskeys() {
+    passKeyLoading.value = true
+    rawPasskeys.value = await (await fetch('/api/1.0/passkey')).json()
+    passKeyLoading.value = false
+  }
 
   async function register() {
     registrationError.value = ''
@@ -111,6 +114,12 @@
     }
 
     console.log('WebAuthn: Registration complete', result)
+  }
+
+  async function deletePasskey(passKey: IPassKey) {
+    console.log('delete passkey', passKey.id)
+
+    await loadPasskeys()
   }
 </script>
 
