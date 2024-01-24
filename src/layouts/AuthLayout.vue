@@ -28,7 +28,6 @@
 </template>
 
 <script>
-  import { useRouter } from 'vue-router'
   import RadicalLogo from '../components/RadicalLogo.vue'
   import AuthLayoutPasskey from './AuthLayoutPasskey.vue'
   import { useI18n } from 'vue-i18n'

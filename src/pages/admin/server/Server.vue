@@ -49,7 +49,7 @@
 <script setup lang="ts">
   import { computed } from 'vue'
   import { useGlobalStore } from '../../../stores/global-store'
-  import vpn_info_card from '../vpn/VpnInfoItemCard.vue'
+  import vpn_info_card from '../vpn/components/VpnInfoItemCard.vue'
 
   const store = useGlobalStore()
   const onlineServer = computed(() => {
