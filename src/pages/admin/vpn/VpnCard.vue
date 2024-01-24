@@ -8,17 +8,10 @@
   <va-card-content>
     <vpn_info_card title="Upstream" :value="`${store.humanFileSize(vpnStates?.[vpn.id]?.rx || 0)}/s`" />
     <vpn_info_card title="Downstream" :value="`${store.humanFileSize(vpnStates?.[vpn.id]?.tx || 0)}/s`" />
-    <vpn_info_card title="KeepAlive" :value="vpn.status.persistentKeepalive" />
     <vpn_toggle_card :vpn="vpn" />
-    <vpn_info_card title="IP" :value="vpn.status.allowedIps[0] || 'N/A'" />
-    <vpn_info_card title="" :value="vpn.status.allowedIps?.[1]?.slice(13, -1) || 'N/A'" />
-    <va-card-content class="grid grid-cols-12">
-      <div class="col-span-6 flex items-center">Server</div>
-      <div class="col-span-6 flex justify-between items-center pr-2">
-        <va-icon :name="vpnServerIcon" />
-        <span>{{ vpnServer?.hostname || 'N/A' }} </span>
-      </div>
-    </va-card-content>
+    <vpn_info_card title="IPv4" :value="vpn.status.allowedIps[0] || 'N/A'" />
+    <vpn_info_card title="IPv6" :value="vpn.status.allowedIps?.[1] || 'N/A'" />
+    <vpn_info_card title="Server" :value="vpnServer?.hostname || 'N/A'" :icon="vpnServerIcon" />
 
     <div class="flex">
       <va-button @click="showVpnQrModel = true">
@@ -42,8 +35,8 @@
   import { computed, ref } from 'vue'
   import { saveAs } from 'file-saver'
   import { useGlobalStore } from '../../../stores/global-store'
-  import vpn_toggle_card from './VpnToggleCard.vue'
-  import vpn_info_card from './VpnInfoItemCard.vue'
+  import vpn_toggle_card from './components/VpnToggleCard.vue'
+  import vpn_info_card from './components/VpnInfoItemCard.vue'
 
   const store = useGlobalStore()
   const props = defineProps<{
