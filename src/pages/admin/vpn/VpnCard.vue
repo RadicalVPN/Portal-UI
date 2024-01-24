@@ -21,9 +21,15 @@
     </va-card-content>
 
     <div class="flex">
-      <va-button icon="fa-qrcode" @click="showVpnQrModel = true"></va-button>
+      <va-button @click="showVpnQrModel = true">
+        <va-icon name="fa-qrcode"></va-icon>
+      </va-button>
+
       <va-spacer class="spacer" />
-      <va-button icon="fa-download" @click="downloadConfiguration(vpn.id, vpn.alias)" />
+
+      <va-button @click="downloadConfiguration(vpn.id, vpn.alias)">
+        <va-icon name="fa-download"></va-icon>
+      </va-button>
     </div>
   </va-card-content>
 
