@@ -117,7 +117,7 @@
   }
 
   async function deletePasskey(passKey: IPassKey) {
-    console.log('delete passkey', passKey.id)
+    await axios.delete(`/api/1.0/passkey/${passKey.id}`)
 
     await loadPasskeys()
   }
