@@ -250,10 +250,10 @@
   resolved "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.187.tgz"
   integrity sha512-MrO/xLXCaUgZy3y96C/iOsaIqZSeupyTImKClHunL5GrmaiII2VwvWmLBu2hwa0Kp0sV19CsyjtrTc/Fx8rg/A==
 
-"@types/medium-editor@^5.0.5":
-  version "5.0.5"
-  resolved "https://registry.npmjs.org/@types/medium-editor/-/medium-editor-5.0.5.tgz"
-  integrity sha512-iufODxGqPu78eZxOolGtc790n00LIZOeTVvdhX4ka+owG+/bdUnqcI59fTuW/JJavkIpYqCAFj7WKnJxJhQS6w==
+"@types/medium-editor@^5.0.8":
+  version "5.0.8"
+  resolved "https://registry.yarnpkg.com/@types/medium-editor/-/medium-editor-5.0.8.tgz#c60152794187e8d91cc755f15bee2e9802698b98"
+  integrity sha512-8zj+0E1nirrZ8lW6PbKru11z0klAxShLyO2SikbCz4CV1DbdN0gB9hNq99cJS1giEozUEtfhUQ0SDz+VgzeATQ==
 
 "@types/node@^17.0.25", "@types/node@>= 14":
   version "17.0.45"
