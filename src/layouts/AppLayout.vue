@@ -19,7 +19,7 @@
         </div>
       </div>
       <AppLayoutNavigation :is-mobile="isMobile" class="p-4" />
-      <main class="p-4">
+      <main class="p-4 py-0">
         <article>
           <RouterView />
         </article>
