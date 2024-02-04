@@ -1,26 +1,20 @@
 <template>
-  <div class="dashboard">
-    <dashboard-info-block />
-
-    <dashboard-traffic />
-
-    <div class="flex justify-center mt-2">
-      <va-button
-        class="mr-2"
-        size="small"
-        preset="plain"
-        href="https://www.iubenda.com/privacy-policy/19055770"
-        title="Privacy Policy"
-      >
-        Privacy Policy
-      </va-button>
+  <h1 class="page-title font-bold">Dashboard</h1>
+  <section class="flex flex-col gap-4">
+    <div class="flex flex-col sm:flex-row gap-4">
+      <RevenueUpdates class="w-full sm:w-[70%]" />
+      <div class="flex flex-col gap-4 w-full sm:w-[30%]"></div>
     </div>
-  </div>
+
+    <dashboard-data-section />
+
+    <dashboard-traffic class="dashboard" />
+  </section>
 </template>
 
 <script setup lang="ts">
   import DashboardTraffic from './DashboardTraffic.vue'
-  import DashboardInfoBlock from './DashboardInfoBlock.vue'
+  import DashboardDataSection from './DataSection.vue'
 </script>
 
 <style lang="scss">

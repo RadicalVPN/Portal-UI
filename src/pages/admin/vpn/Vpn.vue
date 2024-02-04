@@ -1,4 +1,6 @@
 <template>
+  <h1 class="page-title font-bold">VPN</h1>
+
   <va-card class="horizontal-bars">
     <va-card-content class="my-3 grid grid-cols-12 gap-6">
       <div class="col-span-8 flex items-center">

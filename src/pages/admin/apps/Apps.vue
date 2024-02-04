@@ -1,4 +1,6 @@
 <template>
+  <h1 class="page-title font-bold">Apps</h1>
+
   <div>
     <div v-for="([key, item], index) in Object.entries(items)" :key="index">
       <h1 style="color: var(--va-text-primary)" class="va-h4 mb-4">{{ key }}</h1>
