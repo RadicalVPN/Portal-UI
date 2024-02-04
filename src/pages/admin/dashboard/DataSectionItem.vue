@@ -24,7 +24,6 @@
 </template>
 
 <script lang="ts" setup>
-  import { defineProps } from 'vue'
   import { VaCard } from 'vuestic-ui'
 
   defineProps<{

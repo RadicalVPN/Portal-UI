@@ -47,7 +47,7 @@
       id: 'totalvpn',
       title: 'Total VPNs',
       value: store.vpns.length.toString(),
-      icon: 'fa-money-bill',
+      icon: 'fa-shield-alt',
       iconBackground: getColor('success'),
       iconColor: getColor('on-success'),
       loading: vpnsLoading.value,
@@ -71,8 +71,6 @@
       loading: trafficLoading.value,
     },
   ])
-
-  console.log(dashboardMetrics)
 
   onMounted(async () => {
     store.vpns = await (await fetch('/api/1.0/vpn')).json()
