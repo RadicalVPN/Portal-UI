@@ -18,6 +18,7 @@ interface VpnServer {
   public_key: string
   private_key: string
   online: boolean
+  load: number
 }
 
 export const useGlobalStore = defineStore('global', {

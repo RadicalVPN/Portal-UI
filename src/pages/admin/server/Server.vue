@@ -43,6 +43,8 @@
             <va-badge v-else text="Offline" color="danger" class="mr-2" />
           </div>
         </va-card-content>
+
+        <vpn_info_card title="Load" :value="`${server.load} %`" />
       </va-card-content>
     </va-card>
   </div>
